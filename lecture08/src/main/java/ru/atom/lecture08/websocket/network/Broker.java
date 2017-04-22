@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
 import org.jetbrains.annotations.NotNull;
+import ru.atom.lecture08.websocket.message.DirectionMessage;
 import ru.atom.lecture08.websocket.message.Message;
 import ru.atom.lecture08.websocket.message.Topic;
 import ru.atom.lecture08.websocket.util.JsonHelper;
@@ -25,6 +26,19 @@ public class Broker {
     public void receive(@NotNull Session session, @NotNull String msg) {
         log.info("RECEIVED: " + msg);
         Message message = JsonHelper.fromJson(msg, Message.class);
+        if (message.getTopic().equals(Topic.PLANT_BOMB)) {
+            log.info("Message type: " + Topic.PLANT_BOMB.toString());
+        } else if (message.getTopic().equals(Topic.MOVE)) {
+            try {
+                DirectionMessage directionMessage = JsonHelper.fromJson(message.getData(), DirectionMessage.class);
+                log.info("Message type: " + Topic.MOVE.toString() +" with direction: " +
+                        directionMessage.getDirection().toString());
+            } catch (EnumConstantNotPresentException ex) {
+                log.error("Bad direction");
+            }
+        } else {
+            log.error("Bad data");
+        }
         //TODO TASK2 implement message processing
     }
 
