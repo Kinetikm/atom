@@ -8,7 +8,7 @@ import ru.atom.geometry.Point;
 /**
  * Created by kinetik on 02.05.17.
  */
-public class DestrWall implements Positionable, Tickable, GameObject {
+public class Wood implements Positionable, Tickable, GameObject {
 
     private final int wallId;
 
@@ -31,7 +31,7 @@ public class DestrWall implements Positionable, Tickable, GameObject {
     private long tickValue;
     private Point position;
 
-    public DestrWall(int wallId, long tickValue, Point position) {
+    public Wood(int wallId, long tickValue, Point position) {
         this.wallId = wallId;
         this.tickValue = tickValue;
         this.position = position;

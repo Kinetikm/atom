@@ -11,14 +11,14 @@ import ru.atom.geometry.Point;
 /**
  * Created by kinetik on 02.05.17.
  */
-public class PlayerObject implements Movable, Positionable, Tickable, GameObject {
+public class Pawn implements Movable, Positionable, Tickable, GameObject {
 
     private final int playerId;
     private int velocity;
     private Point position;
     private long tickValue;
 
-    public PlayerObject(int playerId, int velocity, Point position, long tickValue) {
+    public Pawn(int playerId, int velocity, Point position, long tickValue) {
         this.playerId = playerId;
         if (velocity <= 0) {
             throw new IllegalArgumentException();

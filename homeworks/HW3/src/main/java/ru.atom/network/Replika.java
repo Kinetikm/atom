@@ -1,9 +1,8 @@
 package ru.atom.network;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
-import ru.atom.gameinterfaces.GameObject;
+import ru.atom.gameinterfaces.Positionable;
+import ru.atom.util.JsonGameObject;
+import ru.atom.util.JsonHelper;
 
 import java.util.ArrayList;
 
@@ -12,25 +11,17 @@ import java.util.ArrayList;
  */
 public class Replika {
     private final Topic topic;
-    private final ArrayList<GameObject> objects;
-    private ArrayList<String> dataObjects;
+    private ArrayList<String> dataObjects = new ArrayList<>();
 
-    public Replika(Topic topic, ArrayList<GameObject> objects) {
-        this.topic = topic;
-        this.objects = objects;
+    public Replika(ArrayList<Positionable> objects) {
+        this.topic = Topic.REPLICA;
+        for (Positionable object: objects) {
+            JsonGameObject jsonGameObject = new JsonGameObject(object);
+            this.dataObjects.add(jsonGameObject.toJsonPosition());
+        }
     }
 
-    @JsonCreator
-    public Message(@JsonProperty("topic") Topic topic, @JsonProperty("data") JsonNode data) {
-        this.topic = topic;
-        this.data = data.toString();
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public String getData() {
-        return data;
+    public String getJson() {
+        return JsonHelper.toJson(this);
     }
 }
