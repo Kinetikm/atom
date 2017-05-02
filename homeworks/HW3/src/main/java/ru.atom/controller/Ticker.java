@@ -36,7 +36,6 @@ public class Ticker {
 
     private void act(long time) {
         this.gameObject.tick(time);
-        this.tickNumber +=1;
     }
 
     public long getTickNumber() {
