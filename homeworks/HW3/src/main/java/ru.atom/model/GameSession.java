@@ -6,7 +6,6 @@ import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
-import ru.atom.network.Replika;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +57,5 @@ public class GameSession implements Tickable {
             }
         }
         gameObjects.removeAll(dead);
-        Replika repliks = new Replika(this.gameObjects);
     }
 }
