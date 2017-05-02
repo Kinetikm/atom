@@ -4,7 +4,9 @@ import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Movable;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Tickable;
+import ru.atom.geometry.Direction;
 import ru.atom.geometry.Point;
+
 
 /**
  * Created by kinetik on 02.05.17.
@@ -42,7 +44,7 @@ public class PlayerObject implements Movable, Positionable, Tickable, GameObject
     }
 
     @Override
-    public Point move(Movable.Direction direction) {
+    public Point move(Direction direction) {
         switch (direction) {
             case UP:
                 this.position = new Point(this.position.getxCoord(), this.position.getyCoord() + this.velocity);
