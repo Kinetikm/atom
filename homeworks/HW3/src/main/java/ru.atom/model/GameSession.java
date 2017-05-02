@@ -3,8 +3,10 @@ package ru.atom.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.gameinterfaces.GameObject;
+import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
+import ru.atom.network.Replika;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,14 @@ import java.util.List;
 
 public class GameSession implements Tickable {
     private static final Logger log = LogManager.getLogger(GameSession.class);
-    private List<GameObject> gameObjects = new ArrayList<>();
+    private List<Positionable> gameObjects = new ArrayList<>();
     private int gameObjectId;
 
     public GameSession(int gameObjectId) {
         this.gameObjectId = gameObjectId;
     }
 
-    public List<GameObject> getGameObjects() {
+    public List<Positionable> getGameObjects() {
         return new ArrayList<>(gameObjects);
     }
 
@@ -30,7 +32,7 @@ public class GameSession implements Tickable {
         return gameObjectId;
     }
 
-    public void addGameObject(GameObject gameObject) {
+    public void addGameObject(Positionable gameObject) {
         try {
             gameObjects.add(gameObject);
             log.info("Create an object " + gameObject.getClass() + " with id=" + gameObject.getId());
@@ -56,5 +58,6 @@ public class GameSession implements Tickable {
             }
         }
         gameObjects.removeAll(dead);
+        Replika repliks = new Replika(this.gameObjects);
     }
 }
