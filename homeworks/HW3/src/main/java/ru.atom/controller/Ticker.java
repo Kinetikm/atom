@@ -2,7 +2,7 @@ package ru.atom.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.atom.model.GameSession;
+import ru.atom.gameinterfaces.Tickable;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
@@ -12,7 +12,11 @@ public class Ticker {
     private static final int FPS = 60;
     private static final long FRAME_TIME = 1000 / FPS;
     private long tickNumber = 0;
-    private final GameSession gameSession = new GameSession(0);
+    private final Tickable gameObject;
+
+    public Ticker(Tickable gameObject) {
+        this.gameObject = gameObject;
+    }
 
     public void loop() {
         while (!Thread.currentThread().isInterrupted()) {
@@ -31,7 +35,8 @@ public class Ticker {
     }
 
     private void act(long time) {
-        gameSession.tick(time);
+        this.gameObject.tick(time);
+        this.tickNumber +=1;
     }
 
     public long getTickNumber() {

@@ -39,8 +39,7 @@ public class Broker {
         } else {
             log.error("Bad data");
         }
-        //TODO TASK2 implement message processing
-    }
+   }
 
     public void send(@NotNull String player, @NotNull Topic topic, @NotNull Object object) {
         String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
