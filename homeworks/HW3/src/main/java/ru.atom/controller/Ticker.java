@@ -3,6 +3,9 @@ package ru.atom.controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.gameinterfaces.Tickable;
+import ru.atom.model.GameSession;
+import ru.atom.network.Broker;
+import ru.atom.network.Topic;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
@@ -12,10 +15,11 @@ public class Ticker {
     private static final int FPS = 60;
     private static final long FRAME_TIME = 1000 / FPS;
     private long tickNumber = 0;
-    private final Tickable gameObject;
+    private final GameSession gameSession;
+    private Object lock = new Object();
 
-    public Ticker(Tickable gameObject) {
-        this.gameObject = gameObject;
+    public Ticker(GameSession gameSession) {
+        this.gameSession = gameSession;
     }
 
     public void loop() {
@@ -35,7 +39,10 @@ public class Ticker {
     }
 
     private void act(long time) {
-        this.gameObject.tick(time);
+        synchronized (lock) {
+            this.gameSession.tick(time);
+            Broker.getInstance().broadcast(Topic.REPLICA, this.gameSession.getGameObjects());
+        }
     }
 
     public long getTickNumber() {
