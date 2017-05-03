@@ -19,7 +19,7 @@ public class Possess {
     public Possess(@JsonProperty("data") JsonNode data) {
         this.data = (int) Integer.parseInt(data.toString());
     }
-    
+
     public int getData() {
         return data;
     }
