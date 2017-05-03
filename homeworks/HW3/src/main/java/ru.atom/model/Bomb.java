@@ -31,6 +31,8 @@ public class Bomb implements GameObject, Tickable, Temporary, Positionable {
     }
 
 
+
+
     @Override
     public int getId() {
         return this.id;

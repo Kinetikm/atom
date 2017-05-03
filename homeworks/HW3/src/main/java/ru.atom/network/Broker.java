@@ -50,6 +50,7 @@ public class Broker {
     public void send(@NotNull Session session, @NotNull Topic topic, @NotNull Object object) {
         String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
         connectionPool.send(session, message);
+        log.info("Send message to " + session);
     }
 
     public void broadcast(@NotNull Topic topic, @NotNull Object object) {

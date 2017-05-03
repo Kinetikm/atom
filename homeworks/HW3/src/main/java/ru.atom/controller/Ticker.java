@@ -2,11 +2,15 @@ package ru.atom.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Tickable;
 import ru.atom.model.GameSession;
 import ru.atom.network.Broker;
+import ru.atom.network.Replika;
 import ru.atom.network.Topic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
@@ -41,7 +45,11 @@ public class Ticker {
     private void act(long time) {
         synchronized (lock) {
             this.gameSession.tick(time);
-            Broker.getInstance().broadcast(Topic.REPLICA, this.gameSession.getGameObjects());
+            List<Replika> replikas = new ArrayList<>();
+            for (Positionable obj: this.gameSession.getGameObjects()) {
+                replikas.add(new Replika(obj));
+            }
+            Broker.getInstance().broadcast(Topic.REPLICA, replikas);
         }
     }
 
