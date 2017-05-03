@@ -9,24 +9,17 @@ import ru.atom.util.JsonHelper;
  * Created by ilysko on 02.05.17.
  */
 public class Possess {
-    private final Topic topic;
     private final int data;
 
-    public Possess(Topic topic, int data) {
-        this.topic = topic;
+    public Possess(int data) {
         this.data = data;
     }
 
     @JsonCreator
-    public Possess(@JsonProperty("topic") Topic topic, @JsonProperty("data") JsonNode data) {
-        this.topic = topic;
+    public Possess(@JsonProperty("data") JsonNode data) {
         this.data = (int) Integer.parseInt(data.toString());
     }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
+    
     public int getData() {
         return data;
     }
