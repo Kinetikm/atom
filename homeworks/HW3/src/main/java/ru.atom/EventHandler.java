@@ -14,7 +14,6 @@ public class EventHandler extends WebSocketAdapter {
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
         Broker.getInstance().send(sess, Topic.POSSESS, 0);
-        System.out.println("Socket Connected: " + sess);
     }
 
     @Override

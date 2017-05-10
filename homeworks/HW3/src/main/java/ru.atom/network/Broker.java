@@ -23,7 +23,7 @@ public class Broker {
         this.connectionPool = ConnectionPool.getInstance();
     }
 
-    public void receive(@NotNull Session session, @NotNull String msg) {
+    public void receive(@NotNull String msg) {
         log.info("RECEIVED: " + msg);
         Message message = JsonHelper.fromJson(msg, Message.class);
         if (message.getTopic().equals(Topic.PLANT_BOMB)) {

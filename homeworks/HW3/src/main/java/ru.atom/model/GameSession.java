@@ -6,6 +6,8 @@ import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
+import ru.atom.network.Broker;
+import ru.atom.network.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
