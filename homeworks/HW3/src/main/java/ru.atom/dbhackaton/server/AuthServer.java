@@ -7,6 +7,7 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import ru.atom.dbhackaton.mm.CrossBrowserFilter;
 
 
 public class AuthServer {
@@ -17,7 +18,7 @@ public class AuthServer {
                 createResourceContext()
         });
 
-        Server jettyServer = new Server(8080);
+        Server jettyServer = new Server(8070);
         jettyServer.setHandler(contexts);
 
         jettyServer.start();

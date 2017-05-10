@@ -35,14 +35,13 @@
             "method": "POST",
             "crossDomain": true,
             "url": "http://localhost:8282/mm/join",
-            "dataType": "application/x-www-form-urlencoded",
             data: {
                 'name': Cookies.get('user'),
                 'token': Cookies.get('token')
             }
         };
         $.ajax(settings).done(function(response) {
-            alert(response.responseText);
+            window.location.href = "http://localhost:63342" + response;
         }).fail(function (jqXHR, textStatus) {
             alert(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);
             console.log(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);

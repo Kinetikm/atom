@@ -34,12 +34,11 @@ public class MatchMaker {
     @Produces("text/plain")
     public static Response join(@FormParam("name") String name,
                          @FormParam ("token") String token) {
-
-        if (name != null && token == null) {
+        if (name != null && token != null) {
             Long longToken = Long.parseLong(token);
             LoginEntity user = TokenStorage.getByToken(longToken);
-            log.info("user " + user.toString() + " join game");
-            return Response.ok("wtfis.ru:8090/gs/12345").build();
+            log.info("user \"" + user.getUser().getLogin() + "\" joined game");
+            return Response.ok("/atom/bomberman/frontend/src/main/webapp/index.html").build();
         } else {
             if (token == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();

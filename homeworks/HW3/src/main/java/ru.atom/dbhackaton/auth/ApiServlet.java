@@ -9,9 +9,8 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import ru.atom.dbhackaton.auth.AuthFilter;
 import ru.atom.dbhackaton.server.AuthServer;
-import ru.atom.dbhackaton.server.CrossBrowserFilter;
+import ru.atom.dbhackaton.mm.CrossBrowserFilter;
 
 /**
  * Created by vladfedorenko on 24.10.16.
