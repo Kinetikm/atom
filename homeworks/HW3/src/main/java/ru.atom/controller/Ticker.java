@@ -45,11 +45,6 @@ public class Ticker {
     private void act(long time) {
         synchronized (lock) {
             this.gameSession.tick(time);
-            List<Replika> replikas = new ArrayList<>();
-            for (Positionable obj: this.gameSession.getGameObjects()) {
-                replikas.add(new Replika(obj));
-            }
-            Broker.getInstance().broadcast(Topic.REPLICA, replikas);
         }
     }
 

@@ -19,7 +19,7 @@ public class Bomb implements GameObject, Tickable, Temporary, Positionable {
     private long lifePeriod;
     private long timePass;
 
-    public Bomb(int id, Point position, long lifePeriod, int timePass) {
+    public Bomb(int id, Point position, long lifePeriod, long timePass) {
 
         this.id = id;
         this.position = position;
