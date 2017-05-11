@@ -9,6 +9,17 @@ dependencies {
     compile rootProject.libraries.websocketclient
     compile rootProject.libraries.websocketserver
     compile rootProject.libraries.websocketapi
+    compile rootProject.libraries.hibernate
+    compile rootProject.libraries.okhttp
+    compile rootProject.libraries.jetbrainsAnnotations
+    compile rootProject.libraries.postgres
+
+    compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
+    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0-m01'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.25'
+
+
 }
 
 sourceSets {
