@@ -38,6 +38,7 @@ public class MatchMaker {
             Long longToken = Long.parseLong(token);
             LoginEntity user = TokenStorage.getByToken(longToken);
             log.info("user \"" + user.getUser().getLogin() + "\" joined game");
+            ThreadSafeQueue.getInstance().add(user.getToken());
             return Response.ok("/atom/bomberman/frontend/src/main/webapp/index.html").build();
         } else {
             if (token == null) {
