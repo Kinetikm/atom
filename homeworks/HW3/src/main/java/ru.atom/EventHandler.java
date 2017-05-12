@@ -19,6 +19,7 @@ public class EventHandler extends WebSocketAdapter {
     @Override
     public void onWebSocketText(String message) {
         super.onWebSocketText(message);
+        Broker.getInstance().receive(super.getSession(), message);
         System.out.println("Received TEXT message: " + message);
     }
 
