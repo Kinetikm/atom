@@ -35,6 +35,7 @@ public class MatchMakerService implements Runnable {
                 session.newConnection(candidates);
                 session.setId(sessionIds.getAndIncrement());
                 log.info(session);
+                session.start();
                 ThreadSafeStorage.put(session);
                 candidates.clear();
             }
