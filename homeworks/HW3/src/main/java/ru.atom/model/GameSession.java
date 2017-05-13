@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameSession implements Tickable {
     private static final Logger log = LogManager.getLogger(GameSession.class);
-    private static HashMap<Integer, Positionable> gameObjects = new HashMap<>();
+    private HashMap<Integer, Positionable> gameObjects = new HashMap<>();
     private static LinkedList<Point> pawnStarts = new LinkedList<>();
     private static ConcurrentHashMap<String, Integer> playersOnline = new ConcurrentHashMap<>();
     public static ConcurrentLinkedQueue<Action> playersActions = new ConcurrentLinkedQueue<>();
@@ -35,6 +35,7 @@ public class GameSession implements Tickable {
     private AtomicInteger gameObjectId;
     private Ticker ticker;
     private long id;
+    private Positionable[][] gameField = new Positionable[17][13];
 
     public static int PLAYERS_IN_GAME = 4;
 
@@ -77,22 +78,35 @@ public class GameSession implements Tickable {
         }
     }
 
+    private void addFieldElement(Positionable fieldPart) {
+        try {
+            gameField[(int) fieldPart.getPosition().getxCoord()][(int) fieldPart.getPosition().getyCoord()] = fieldPart;
+            log.info("Create an fieldPart " + fieldPart.getClass() + " with id=" + fieldPart.getId());
+            this.gameObjectId.incrementAndGet();
+        } catch (IllegalArgumentException ex) {
+            log.error("IllegalArgumentException with " + fieldPart.getClass() + ", id = " + fieldPart.getId());
+        } catch (Exception ex) {
+            log.error("Exception " + ex.getClass() + " with cause" + ex.getCause() + " with sttrace "
+                    + ex.getStackTrace());
+        }
+    }
+
     public void fieldInit() {
         for(int i=0; i<17; i++) {
             for(int j=0; j<13; j++) {
                 if(i == 0 || j == 0 || i == 16 || j == 12) {
-                    this.addGameObject(new Wall(this.getGameObjectId(), new Point(i, j)));
+                    this.addFieldElement(new Wall(this.getGameObjectId(), new Point(i, j)));
                     continue;
                 }
                 if(i % 2 == 0 && j % 2 == 0) {
-                    this.addGameObject(new Wall(this.getGameObjectId(), new Point(i, j)));
+                    this.addFieldElement(new Wall(this.getGameObjectId(), new Point(i, j)));
                     continue;
                 }
                 if(((i == 15 || i == 1) && (j == 1 || j == 2 || j == 10 || j == 11))
                         || ((j == 1 || j == 11) && (i == 2 || i == 14))) {
                     continue;
                 }
-                this.addGameObject(new Wood(this.getGameObjectId(), 0, new Point(i, j)));
+                this.addFieldElement(new Wood(this.getGameObjectId(), 0, new Point(i, j)));
             }
         }
     }
@@ -105,6 +119,13 @@ public class GameSession implements Tickable {
         ArrayList<String> objects = new ArrayList<>();
         for(Positionable gameObject: this.getGameObjects()) {
             objects.add(new Replika(gameObject).getJson());
+        }
+        for(int i=0; i<17; i++) {
+            for (int j = 0; j < 13; j++) {
+                if(this.gameField[i][j] != null) {
+                    objects.add(new Replika(this.gameField[i][j]).getJson());
+                }
+            }
         }
         Broker.getInstance().broadcast(Topic.REPLICA, objects);
         ticker = new Ticker(this);
@@ -122,8 +143,26 @@ public class GameSession implements Tickable {
             if (object instanceof Temporary && ((Temporary) object).isDead()) {
                 gameObjects.remove(gameObject);
             }
+            if (object instanceof Bomb) {
+                int xLeft = (int) object.getPosition().getxCoord()-1;
+                int xRight = (int) object.getPosition().getxCoord()+1;
+                int yUp = (int) object.getPosition().getyCoord()+1;
+                int yDown = (int) object.getPosition().getyCoord()-1;
+                if(this.gameField[xLeft][yDown] instanceof Wood) {
+                    this.gameField[xLeft][yDown]=null;
+                }
+                if(this.gameField[xRight][yDown] instanceof Wood) {
+                    this.gameField[xRight][yDown]=null;
+                }
+                if(this.gameField[xLeft][yUp] instanceof Wood) {
+                    this.gameField[xLeft][yUp]=null;
+                }
+                if(this.gameField[xRight][yUp] instanceof Wood) {
+                    this.gameField[xRight][yUp]=null;
+                }
+            }
         }
-        while(playersActions.isEmpty()) {
+        while(playersActions.isEmpty() == false) {
                 Action action = playersActions.poll();
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),
@@ -138,6 +177,13 @@ public class GameSession implements Tickable {
         ArrayList<String> objects = new ArrayList<>();
         for(Positionable gameObject: this.getGameObjects()) {
             objects.add(new Replika(gameObject).getJson());
+        }
+        for(int i=0; i<17; i++) {
+            for (int j = 0; j < 13; j++) {
+                if(this.gameField[i][j] != null) {
+                    objects.add(new Replika(this.gameField[i][j]).getJson());
+                }
+            }
         }
         Broker.getInstance().broadcast(Topic.REPLICA, objects);
     }
