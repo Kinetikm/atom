@@ -31,7 +31,7 @@ public class Broker {
         Message message = JsonHelper.fromJson(msg, Message.class);
         if (message.getTopic().equals(Topic.PLANT_BOMB)) {
             log.info("Message type: " + Topic.PLANT_BOMB.toString());
-            playersActions.add(new Action(Action.Type.PLANT, ConnectionPool.getInstance().getPlayer(session)));
+            playersActions.add(new Action(Action.Type.PLANT, ConnectionPool.getInstance().getPlayer(session )));
         } else if (message.getTopic().equals(Topic.MOVE)) {
             try {
                 DirectionMessage directionMessage = JsonHelper.fromJson(message.getData(), DirectionMessage.class);

@@ -2,6 +2,7 @@ package ru.atom.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
 import ru.atom.controller.Ticker;
 import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
@@ -117,7 +118,7 @@ public class GameSession implements Tickable {
                 gameObjects.remove(gameObject);
             }
         }
-        while(playersActions.isEmpty() != false) {
+        while(playersActions.isEmpty()) {
                 Action action = playersActions.poll();
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),

@@ -2,6 +2,7 @@ package ru.atom;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
+import ru.atom.model.GameSession;
 import ru.atom.network.Broker;
 import ru.atom.network.Topic;
 
