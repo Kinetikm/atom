@@ -3,6 +3,7 @@ package ru.atom;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import ru.atom.network.Broker;
+import ru.atom.network.ConnectionPool;
 import ru.atom.network.Topic;
 
 /**
@@ -13,6 +14,7 @@ public class EventHandler extends WebSocketAdapter {
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
+        ConnectionPool.getInstance().add(sess, playerToken);
         System.out.println("Socket Connected: " + sess);
     }
 
