@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by kinetik on 13.05.17.
@@ -21,7 +22,8 @@ import java.util.Arrays;
 @Path("/*")
 public class EventServerController {
     private static final Logger log = LogManager.getLogger(EventServerController.class);
-    private int gameObjectId = 1;
+    private static AtomicLong gameObjectId = new AtomicLong(0L);
+    private static AtomicLong sessionIds = new AtomicLong(0L);
 
     @POST
     @Path("/start")
@@ -29,9 +31,9 @@ public class EventServerController {
     @Produces("text/plain")
     public Response startGame(@FormParam("token") String[] candidatesTockens) {
         ArrayList candidates = new ArrayList<String>(Arrays.asList(candidatesTockens));
-        GameSession session = new GameSession(gameObjectId++);
+        GameSession session = new GameSession((int) gameObjectId.getAndIncrement());
         session.newConnection(candidates);
-        session.setId(gameObjectId++);
+        session.setId(sessionIds.getAndIncrement());
         log.info(session);
         session.start();
         ThreadSafeStorage.put(session);

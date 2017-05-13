@@ -1,6 +1,5 @@
 package ru.atom.dbhackaton.mm;
 
-import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.model.GameSession;
@@ -32,7 +31,30 @@ public class MatchMakerService implements Runnable {
             }
 
             if (candidates.size() == GameSession.PLAYERS_IN_GAME) {
-                Response
+                MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+                RequestBody body = RequestBody.create(
+                        mediaType,
+                        String.format("token=%s", candidates)
+                );
+
+                //TODO указать URL сервера , на котором будет висеть EventServerController
+                String requestUrl = "localhost" + "/start";
+                Request request = new Request.Builder()
+                        .url(requestUrl)
+                        .post(body)
+                        .addHeader("content-type", "application/x-www-form-urlencoded")
+                        .build();
+
+                OkHttpClient client = new OkHttpClient();
+                Response response = null;
+                try {
+                    response = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                log.info(response.code());
+
+                candidates.clear();
             }
         }
     }
