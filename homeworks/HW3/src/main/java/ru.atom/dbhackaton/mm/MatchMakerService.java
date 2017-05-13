@@ -1,9 +1,11 @@
 package ru.atom.dbhackaton.mm;
 
+import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.model.GameSession;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -14,8 +16,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class MatchMakerService implements Runnable {
     private static final Logger log = LogManager.getLogger(MatchMaker.class);
-    public static AtomicLong sessionIds = new AtomicLong(0L);
-
 
     @Override
     public void run() {
@@ -31,12 +31,29 @@ public class MatchMakerService implements Runnable {
             }
 
             if (candidates.size() == GameSession.PLAYERS_IN_GAME) {
-                GameSession session = new GameSession(0);
-                session.newConnection(candidates);
-                session.setId(sessionIds.getAndIncrement());
-                log.info(session);
-                session.start();
-                ThreadSafeStorage.put(session);
+                MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+                RequestBody body = RequestBody.create(
+                        mediaType,
+                        String.format("token=%s", candidates)
+                );
+
+                //TODO указать URL сервера , на котором будет висеть EventServerController
+                String requestUrl = "localhost" + "/start";
+                Request request = new Request.Builder()
+                        .url(requestUrl)
+                        .post(body)
+                        .addHeader("content-type", "application/x-www-form-urlencoded")
+                        .build();
+
+                OkHttpClient client = new OkHttpClient();
+                Response response = null;
+                try {
+                    response = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                log.info(response.code());
+
                 candidates.clear();
             }
         }
