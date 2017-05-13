@@ -28,12 +28,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GameSession implements Tickable {
     private static final Logger log = LogManager.getLogger(GameSession.class);
     private static HashMap<Integer, Positionable> gameObjects = new HashMap<>();
-    private AtomicInteger gameObjectId;
-    private Ticker ticker;
-
     private static LinkedList<Point> pawnStarts = new LinkedList<>();
     private static ConcurrentHashMap<String, Integer> playersOnline = new ConcurrentHashMap<>();
     public static ConcurrentLinkedQueue<Action> playersActions = new ConcurrentLinkedQueue<>();
+
+    private AtomicInteger gameObjectId;
+    private Ticker ticker;
+    private long id;
+
+    public static int PLAYERS_IN_GAME = 4;
 
     static {
         pawnStarts.add(new Point(1,1));
@@ -46,9 +49,11 @@ public class GameSession implements Tickable {
         this.gameObjectId = new AtomicInteger(gameObjectId);
     }
 
-    public void newConnection(String name) {
-        playersOnline.put(name, this.getGameObjectId());
-        this.addGameObject(new Pawn(this.getGameObjectId(), 1, pawnStarts.remove(), 0));
+    public void newConnection(List<String> players) {
+        for(String name: players) {
+            playersOnline.put(name, this.getGameObjectId());
+            this.addGameObject(new Pawn(this.getGameObjectId(), 1, pawnStarts.remove(), 0));
+        }
     }
 
     public List<Positionable> getGameObjects() {
@@ -135,5 +140,13 @@ public class GameSession implements Tickable {
             objects.add(new Replika(gameObject).getJson());
         }
         Broker.getInstance().broadcast(Topic.REPLICA, objects);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
