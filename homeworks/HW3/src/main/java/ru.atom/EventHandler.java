@@ -7,6 +7,8 @@ import ru.atom.network.Broker;
 import ru.atom.network.ConnectionPool;
 import ru.atom.network.Topic;
 
+import javax.ws.rs.PathParam;
+
 /**
  * Created by vladfedorenko on 02.05.17.
  */

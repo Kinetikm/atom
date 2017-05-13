@@ -1,21 +1,20 @@
 package ru.atom.dbhackaton.mm;
 
+import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.model.GameSession;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by kinetik on 12.05.17.
  */
 public class MatchMakerService implements Runnable {
     private static final Logger log = LogManager.getLogger(MatchMaker.class);
-    public static AtomicLong sessionIds = new AtomicLong(0L);
-
 
     @Override
     public void run() {
@@ -38,7 +37,7 @@ public class MatchMakerService implements Runnable {
                 );
 
                 //TODO указать URL сервера , на котором будет висеть EventServerController
-                String requestUrl = "localhost" + "/start";
+                String requestUrl = "localhost:8090" + "/start";
                 Request request = new Request.Builder()
                         .url(requestUrl)
                         .post(body)
