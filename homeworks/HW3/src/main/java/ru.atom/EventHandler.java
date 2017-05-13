@@ -17,7 +17,7 @@ public class EventHandler extends WebSocketAdapter {
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
-        ConnectionPool.getInstance().add(sess, playerToken);
+        //ConnectionPool.getInstance().add(sess, playerToken);
         System.out.println("Socket Connected: " + sess);
     }
 

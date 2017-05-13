@@ -9,7 +9,7 @@ public class Point implements Collider {
     private long xCoord;
     private long yCoord;
 
-    public Point(int xCoord, int yCoord) {
+    public Point(long xCoord, long yCoord) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }

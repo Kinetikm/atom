@@ -25,11 +25,11 @@ public class Replika {
     }   
     
     private class Position {
-        private int x;
-        private int y;
+        private long x;
+        private long y;
 
         @JsonCreator
-        public Position(@JsonProperty("x") int x,@JsonProperty("y") int y) {
+        public Position(@JsonProperty("x") long x,@JsonProperty("y") long y) {
             this.x = x;
             this.y = y;
         }
