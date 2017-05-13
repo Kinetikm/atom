@@ -1,5 +1,6 @@
 package ru.atom.dbhackaton.mm;
 
+import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.model.GameSession;
@@ -31,13 +32,7 @@ public class MatchMakerService implements Runnable {
             }
 
             if (candidates.size() == GameSession.PLAYERS_IN_GAME) {
-                GameSession session = new GameSession(0);
-                session.newConnection(candidates);
-                session.setId(sessionIds.getAndIncrement());
-                log.info(session);
-                session.start();
-                ThreadSafeStorage.put(session);
-                candidates.clear();
+                Response
             }
         }
     }
