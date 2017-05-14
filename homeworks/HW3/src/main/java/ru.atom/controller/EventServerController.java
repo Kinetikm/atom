@@ -1,7 +1,6 @@
 package ru.atom.controller;
 
 import com.sun.org.apache.regexp.internal.RE;
-import okhttp3.WebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.dbhackaton.hibernate.LoginEntity;

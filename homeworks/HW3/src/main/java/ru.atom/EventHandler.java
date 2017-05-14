@@ -7,17 +7,17 @@ import ru.atom.network.Broker;
 import ru.atom.network.ConnectionPool;
 import ru.atom.network.Topic;
 
+import javax.ws.rs.PathParam;
+
 /**
  * Created by vladfedorenko on 02.05.17.
  */
 
 public class EventHandler extends WebSocketAdapter {
-
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
-        String playerToken = "123";
-        ConnectionPool.getInstance().add(sess, playerToken);
+        //ConnectionPool.getInstance().add(sess, playerToken);
         System.out.println("Socket Connected: " + sess);
     }
 

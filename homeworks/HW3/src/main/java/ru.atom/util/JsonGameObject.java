@@ -22,10 +22,10 @@ public class JsonGameObject {
     }
 
     private class Position {
-        int x;
-        int y;
+        long x;
+        long y;
 
-        public int getX() {
+        public long getX() {
             return x;
         }
 
@@ -33,7 +33,7 @@ public class JsonGameObject {
             this.x = x;
         }
 
-        public int getY() {
+        public long getY() {
             return y;
         }
 
@@ -41,7 +41,7 @@ public class JsonGameObject {
             this.y = y;
         }
 
-        public Position(int x, int y) {
+        public Position(long x, long y) {
             this.x = x;
             this.y = y;
         }
