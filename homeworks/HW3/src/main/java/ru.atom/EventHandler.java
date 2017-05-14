@@ -12,9 +12,11 @@ import ru.atom.network.Topic;
  */
 
 public class EventHandler extends WebSocketAdapter {
+
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
+        String playerToken = "123";
         ConnectionPool.getInstance().add(sess, playerToken);
         System.out.println("Socket Connected: " + sess);
     }

@@ -37,8 +37,7 @@ public class MatchMakerService implements Runnable {
                         String.format("token=%s", candidates)
                 );
 
-                //TODO указать URL сервера , на котором будет висеть EventServerController
-                String requestUrl = "localhost" + "/start";
+                String requestUrl = "localhost:8090" + "/events/";
                 Request request = new Request.Builder()
                         .url(requestUrl)
                         .post(body)

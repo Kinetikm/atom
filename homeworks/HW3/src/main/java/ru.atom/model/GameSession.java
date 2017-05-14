@@ -36,7 +36,7 @@ public class GameSession implements Tickable {
     private Ticker ticker;
     private long id;
 
-    public static int PLAYERS_IN_GAME = 4;
+    public static int PLAYERS_IN_GAME = 1;
 
     static {
         pawnStarts.add(new Point(1,1));

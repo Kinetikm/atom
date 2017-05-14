@@ -1,6 +1,7 @@
 package ru.atom.controller;
 
 import com.sun.org.apache.regexp.internal.RE;
+import okhttp3.WebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.atom.dbhackaton.hibernate.LoginEntity;
@@ -26,11 +27,11 @@ public class EventServerController {
     private static AtomicLong sessionIds = new AtomicLong(0L);
 
     @POST
-    @Path("/start")
+    @Path("/events/")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public Response startGame(@FormParam("token") String[] candidatesTockens) {
-        ArrayList candidates = new ArrayList<String>(Arrays.asList(candidatesTockens));
+    public Response startGame(@FormParam("token") String[] candidatesTokens) {
+        ArrayList candidates = new ArrayList<String>(Arrays.asList(candidatesTokens));
         GameSession session = new GameSession((int) gameObjectId.getAndIncrement());
         session.newConnection(candidates);
         session.setId(sessionIds.getAndIncrement());
