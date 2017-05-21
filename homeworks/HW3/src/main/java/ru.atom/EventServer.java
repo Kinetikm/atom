@@ -13,7 +13,7 @@ public class EventServer {
     public static void main(String[] args) {
         Server server = new Server();
         ServerConnector connector = new ServerConnector(server);
-        connector.setPort(8090);
+        connector.setPort(8082);
         server.addConnector(connector);
 
         // Setup the basic application "context" for this application at "/"

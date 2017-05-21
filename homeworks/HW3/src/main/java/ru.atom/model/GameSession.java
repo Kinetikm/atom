@@ -2,9 +2,8 @@ package ru.atom.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
+import org.eclipse.jetty.websocket.api.Session;
 import ru.atom.controller.Ticker;
-import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
@@ -28,14 +27,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GameSession implements Tickable {
     private static final Logger log = LogManager.getLogger(GameSession.class);
     private HashMap<Integer, Positionable> gameObjects = new HashMap<>();
+    private ArrayList<Positionable> notMovable = new ArrayList<>();
     private static LinkedList<Point> pawnStarts = new LinkedList<>();
-    private static ConcurrentHashMap<String, Integer> playersOnline = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Session, Integer> playersOnline = new ConcurrentHashMap<>();
     public static ConcurrentLinkedQueue<Action> playersActions = new ConcurrentLinkedQueue<>();
 
     private AtomicInteger gameObjectId;
     private Ticker ticker;
     private long id;
-    private Positionable[][] gameField = new Positionable[17][13];
 
     public static int PLAYERS_IN_GAME = 1;
 
@@ -50,10 +49,11 @@ public class GameSession implements Tickable {
         this.gameObjectId = new AtomicInteger(gameObjectId);
     }
 
-    public void newConnection(List<String> players) {
-        for(String name: players) {
+    public void newConnection(List<Session> players) {
+        for(Session name: players) {
             playersOnline.put(name, this.getGameObjectId());
-            this.addGameObject(new Pawn(this.getGameObjectId(), 1, pawnStarts.remove(), 0));
+            Pawn player = new Pawn(this.getGameObjectId(), 1, pawnStarts.remove(), 0);
+            this.addGameObject(player);
         }
     }
 
@@ -80,7 +80,7 @@ public class GameSession implements Tickable {
 
     private void addFieldElement(Positionable fieldPart) {
         try {
-            gameField[(int) fieldPart.getPosition().getxCoord()][(int) fieldPart.getPosition().getyCoord()] = fieldPart;
+            this.notMovable.add(fieldPart);
             log.info("Create an fieldPart " + fieldPart.getClass() + " with id=" + fieldPart.getId());
             this.gameObjectId.incrementAndGet();
         } catch (IllegalArgumentException ex) {
@@ -111,23 +111,20 @@ public class GameSession implements Tickable {
         }
     }
 
+    private List<Positionable> allObjects() {
+        List<Positionable> allObjects = new ArrayList<>(notMovable);
+        for(Integer key: gameObjects.keySet()) {
+            allObjects.add(gameObjects.get(key));
+        }
+        return allObjects;
+    }
+
     public void start() {
         this.fieldInit();
-        for(String key: playersOnline.keySet()) {
-            Broker.getInstance().send(key, Topic.POSSESS, playersOnline.get(key));
+        for(Session key: playersOnline.keySet()) {
+            Broker.getInstance().send(key.toString(), Topic.POSSESS, playersOnline.get(key));
         }
-        ArrayList<String> objects = new ArrayList<>();
-        for(Positionable gameObject: this.getGameObjects()) {
-            objects.add(new Replika(gameObject).getJson());
-        }
-        for(int i=0; i<17; i++) {
-            for (int j = 0; j < 13; j++) {
-                if(this.gameField[i][j] != null) {
-                    objects.add(new Replika(this.gameField[i][j]).getJson());
-                }
-            }
-        }
-        Broker.getInstance().broadcast(Topic.REPLICA, objects);
+        Broker.getInstance().broadcast(Topic.REPLICA, allObjects());
         ticker = new Ticker(this);
         ticker.loop();
     }
@@ -144,25 +141,13 @@ public class GameSession implements Tickable {
                 gameObjects.remove(gameObject);
             }
             if (object instanceof Bomb) {
-                int xLeft = (int) object.getPosition().getxCoord()-1;
-                int xRight = (int) object.getPosition().getxCoord()+1;
-                int yUp = (int) object.getPosition().getyCoord()+1;
-                int yDown = (int) object.getPosition().getyCoord()-1;
-                if(this.gameField[xLeft][yDown] instanceof Wood) {
-                    this.gameField[xLeft][yDown]=null;
-                }
-                if(this.gameField[xRight][yDown] instanceof Wood) {
-                    this.gameField[xRight][yDown]=null;
-                }
-                if(this.gameField[xLeft][yUp] instanceof Wood) {
-                    this.gameField[xLeft][yUp]=null;
-                }
-                if(this.gameField[xRight][yUp] instanceof Wood) {
-                    this.gameField[xRight][yUp]=null;
-                }
+                int xLeft = object.getPosition().getxCoord()-1;
+                int xRight = object.getPosition().getxCoord()+1;
+                int yUp = object.getPosition().getyCoord()+1;
+                int yDown = object.getPosition().getyCoord()-1;
             }
         }
-        while(playersActions.isEmpty() == false) {
+        while(!playersActions.isEmpty()) {
                 Action action = playersActions.poll();
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),
@@ -174,18 +159,7 @@ public class GameSession implements Tickable {
                     player.move(action.getDirection());
                 }
         }
-        ArrayList<String> objects = new ArrayList<>();
-        for(Positionable gameObject: this.getGameObjects()) {
-            objects.add(new Replika(gameObject).getJson());
-        }
-        for(int i=0; i<17; i++) {
-            for (int j = 0; j < 13; j++) {
-                if(this.gameField[i][j] != null) {
-                    objects.add(new Replika(this.gameField[i][j]).getJson());
-                }
-            }
-        }
-        Broker.getInstance().broadcast(Topic.REPLICA, objects);
+        Broker.getInstance().broadcast(playersOnline.keySet(), Topic.REPLICA, allObjects());
     }
 
     public long getId() {

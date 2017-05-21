@@ -1,6 +1,6 @@
 ServerProxy = Class.extend({
 
-    host: "localhost:8090",
+    host: "localhost:8082",
 
     socket: null,
 
@@ -32,7 +32,7 @@ ServerProxy = Class.extend({
 
     initSocket: function() {
         var self = this;
-        this.socket = new WebSocket("ws://" + this.host + "/events?token=" + Utils.getCookies('token'));
+        this.socket = new WebSocket("ws://" + this.host + "/events");
 
         this.socket.onopen = function() {
             console.log("Connection established.");
@@ -49,6 +49,7 @@ ServerProxy = Class.extend({
 
         this.socket.onmessage = function(event) {
             var msg = JSON.parse(event.data);
+            //var msg = event.data;
             if (self.handler[msg.topic] === undefined)
                 return;
 
