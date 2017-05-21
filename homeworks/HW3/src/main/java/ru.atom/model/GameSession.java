@@ -132,20 +132,35 @@ public class GameSession implements Tickable {
     @Override
     public void tick(long elapsed) {
         log.info("tick");
+        ArrayList<Integer> deadObjects = new ArrayList<>();
         for (Integer gameObject : gameObjects.keySet()) {
             Positionable object = gameObjects.get(gameObject);
             if (object instanceof Tickable) {
                 ((Tickable) object).tick(elapsed);
             }
             if (object instanceof Temporary && ((Temporary) object).isDead()) {
-                gameObjects.remove(gameObject);
+                deadObjects.add(gameObject);
             }
-            if (object instanceof Bomb) {
+            if (object instanceof Bomb && ((Temporary) object).isDead()) {
+                int xSteady = object.getPosition().getxCoord();
+                int ySteady = object.getPosition().getyCoord();
                 int xLeft = object.getPosition().getxCoord()-1;
                 int xRight = object.getPosition().getxCoord()+1;
                 int yUp = object.getPosition().getyCoord()+1;
                 int yDown = object.getPosition().getyCoord()-1;
+                for(Integer objectDeadInd: gameObjects.keySet()) {
+                    Positionable objectDead = gameObjects.get(objectDeadInd);
+                    Point position = objectDead.getPosition();
+                    if(objectDeadInd!=object.getId()  && ((position.getxCoord() == xSteady && (position.getyCoord() == yDown ||
+                    position.getyCoord() == yUp)) || (position.getyCoord() == ySteady && (position.getxCoord() == xLeft ||
+                    position.getxCoord() == xRight))) && objectDead instanceof Temporary) {
+                        deadObjects.add(objectDeadInd);
+                    }
+                }
             }
+        }
+        for(Integer i: deadObjects) {
+            gameObjects.remove(i);
         }
         while(playersActions.isEmpty() == false) {
                 Action action = playersActions.poll();

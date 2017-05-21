@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by kinetik on 13.05.17.
  */
-@Path("/*")
+@Path("/game/")
 public class EventServerController {
     private static final Logger log = LogManager.getLogger(EventServerController.class);
     private static AtomicLong sessionIds = new AtomicLong(0L);
