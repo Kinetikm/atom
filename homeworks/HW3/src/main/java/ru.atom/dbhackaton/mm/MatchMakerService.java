@@ -37,7 +37,7 @@ public class MatchMakerService implements Runnable {
                         String.format("token=%s", candidates)
                 );
 
-                String requestUrl = "localhost:8090" + "/events/";
+                String requestUrl = "localhost:8082" + "/events/";
                 Request request = new Request.Builder()
                         .url(requestUrl)
                         .post(body)

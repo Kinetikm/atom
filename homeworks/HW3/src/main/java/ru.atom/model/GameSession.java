@@ -147,7 +147,7 @@ public class GameSession implements Tickable {
                 int yDown = object.getPosition().getyCoord()-1;
             }
         }
-        while(!playersActions.isEmpty()) {
+        while(playersActions.isEmpty() == false) {
                 Action action = playersActions.poll();
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),

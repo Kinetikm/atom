@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConnectionPool {
     private static final Logger log = LogManager.getLogger(ConnectionPool.class);
     private static final ConnectionPool instance = new ConnectionPool();
-    private static final int PARALLELISM_LEVEL = 4;
+    private static final int PARALLELISM_LEVEL = 1;
     private LinkedList<Session> lastPlayers = new LinkedList<>();
 
     private final ConcurrentHashMap<Session, String> pool;
@@ -62,7 +62,7 @@ public class ConnectionPool {
 
     public List<Session> getLastPLayers() {
         List<Session> resultLastPlayers = new ArrayList<>();
-        for(int i = 0; i<4; i++) {
+        for(int i = 0; i<PARALLELISM_LEVEL; i++) {
             resultLastPlayers.add(lastPlayers.remove());
         }
         return resultLastPlayers;

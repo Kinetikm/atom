@@ -2,6 +2,8 @@ package ru.atom;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
+import ru.atom.controller.EventServerController;
+import ru.atom.dbhackaton.mm.MatchMakerService;
 import ru.atom.model.GameSession;
 import ru.atom.network.Broker;
 import ru.atom.network.ConnectionPool;
@@ -14,6 +16,7 @@ import javax.ws.rs.PathParam;
  */
 
 public class EventHandler extends WebSocketAdapter {
+
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
