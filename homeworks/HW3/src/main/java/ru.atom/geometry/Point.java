@@ -6,27 +6,27 @@ import ru.atom.gameinterfaces.Collider;
  * Created by kinetik on 02.05.17.
  */
 public class Point implements Collider {
-    private long xCoord;
-    private long yCoord;
+    private int xCoord;
+    private int yCoord;
 
-    public Point(long xCoord, long yCoord) {
+    public Point(int xCoord, int yCoord) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
 
-    public long getxCoord() {
+    public int getxCoord() {
         return this.xCoord;
     }
 
-    public long getyCoord() {
+    public int getyCoord() {
         return this.yCoord;
     }
 
-    public void setxCoord(long xCoord) {
+    public void setxCoord(int xCoord) {
         this.xCoord = xCoord;
     }
 
-    public void setyCoord(long yCoord) {
+    public void setyCoord(int yCoord) {
         this.yCoord = yCoord;
     }
 
@@ -50,8 +50,8 @@ public class Point implements Collider {
 
     @Override
     public int hashCode() {
-        int result = (int) (xCoord ^ (xCoord >>> 32));
-        result = 31 * result + (int) (yCoord ^ (yCoord >>> 32));
+        int result = xCoord ^ (xCoord >>> 32);
+        result = 31 * result + yCoord ^ (yCoord >>> 32);
         return result;
     }
 

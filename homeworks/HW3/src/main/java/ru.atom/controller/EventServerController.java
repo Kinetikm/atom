@@ -2,13 +2,14 @@ package ru.atom.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.jetty.websocket.api.Session;
 import ru.atom.dbhackaton.mm.ThreadSafeStorage;
 import ru.atom.model.GameSession;
+import ru.atom.network.ConnectionPool;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -23,8 +24,9 @@ public class EventServerController {
     @Path("/start")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public Response startGame(@FormParam("token") String[] candidatesTockens) {
-        ArrayList<String> candidates = new ArrayList<>(Arrays.asList(candidatesTockens));
+    public Response startGame() {
+        ConnectionPool globalPool = ConnectionPool.getInstance();
+        List<Session> candidates = globalPool.getLastPLayers();
         GameSession session = new GameSession(0);
         session.newConnection(candidates);
         session.setId(sessionIds.getAndIncrement());

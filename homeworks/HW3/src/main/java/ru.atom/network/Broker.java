@@ -7,6 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import ru.atom.model.Action;
 import ru.atom.util.JsonHelper;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import static ru.atom.model.GameSession.playersActions;
 
 /**
@@ -62,5 +65,10 @@ public class Broker {
     public void broadcast(@NotNull Topic topic, @NotNull Object object) {
         String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
         connectionPool.broadcast(message);
+    }
+
+    public void broadcast(@NotNull Set<Session> players, @NotNull Topic topic, @NotNull Object object) {
+        String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
+        connectionPool.broadcast(players, message);
     }
 }
