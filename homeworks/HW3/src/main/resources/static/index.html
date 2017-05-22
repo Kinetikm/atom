@@ -41,7 +41,7 @@
             }
         };
         $.ajax(settings).done(function(response) {
-            window.location.href = "http://localhost:63342" + response;
+            window.location.href = response;
         }).fail(function (jqXHR, textStatus) {
             alert(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);
             console.log(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);

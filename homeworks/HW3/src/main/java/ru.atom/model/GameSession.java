@@ -3,6 +3,7 @@ package ru.atom.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
+import ru.atom.EventHandler;
 import ru.atom.controller.Ticker;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
@@ -121,8 +122,9 @@ public class GameSession implements Tickable {
 
     public void start() {
         this.fieldInit();
+        int id = EventHandler.getPlayerIdGenerator();
         for(Session key: playersOnline.keySet()) {
-            Broker.getInstance().send(key.toString(), Topic.POSSESS, playersOnline.get(key));
+            Broker.getInstance().send("player_" + --id, Topic.POSSESS, playersOnline.get(key));
         }
         Broker.getInstance().broadcast(Topic.REPLICA, allObjects());
         ticker = new Ticker(this);
@@ -162,7 +164,7 @@ public class GameSession implements Tickable {
         for(Integer i: deadObjects) {
             gameObjects.remove(i);
         }
-        while(playersActions.isEmpty() == false) {
+        while(!playersActions.isEmpty()) {
                 Action action = playersActions.poll();
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),

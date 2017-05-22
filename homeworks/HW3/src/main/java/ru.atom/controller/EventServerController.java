@@ -24,7 +24,8 @@ public class EventServerController {
     @Path("/start")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public Response startGame() {
+    public Response startGame() throws InterruptedException {
+        Thread.sleep(5_000);
         ConnectionPool globalPool = ConnectionPool.getInstance();
         List<Session> candidates = globalPool.getLastPLayers();
         GameSession session = new GameSession(0);

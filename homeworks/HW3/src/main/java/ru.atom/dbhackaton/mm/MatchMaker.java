@@ -40,8 +40,10 @@ public class MatchMaker {
             Long longToken = Long.parseLong(token);
             LoginEntity user = TokenStorage.getByToken(longToken);
             log.info("user \"" + user.getUser().getLogin() + "\" joined game");
-            ThreadSafeQueue.getInstance().add(user.getToken());
-            return Response.ok("/atom/bomberman/frontend/src/main/webapp/index.html").header("token",token).build();
+            ThreadSafeQueue.getInstance().add(user);
+            // TODO 0
+            String gameurl = "http://localhost:8082/gg/" + "0";
+            return Response.ok(gameurl).build();
         } else {
             if (token == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();

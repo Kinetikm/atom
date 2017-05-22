@@ -3,6 +3,7 @@ package ru.atom.dbhackaton.mm;
 import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.atom.dbhackaton.hibernate.LoginEntity;
 import ru.atom.model.GameSession;
 
 import java.io.IOException;
@@ -20,8 +21,9 @@ public class MatchMakerService implements Runnable {
     @Override
     public void run() {
         log.info("Started");
-        List<String> candidates = new ArrayList<>(GameSession.PLAYERS_IN_GAME);
+        List<LoginEntity> candidates = new ArrayList<>(GameSession.PLAYERS_IN_GAME);
         while (!Thread.currentThread().isInterrupted()) {
+            log.info("into while cycle");
             try {
                 candidates.add(
                         ThreadSafeQueue.getInstance().poll(10_000, TimeUnit.SECONDS)
@@ -34,10 +36,10 @@ public class MatchMakerService implements Runnable {
                 MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
                 RequestBody body = RequestBody.create(
                         mediaType,
-                        String.format("token=%s", candidates)
+                        String.format("players=%s", candidates)
                 );
 
-                String requestUrl = "localhost:8082" + "/game/start";
+                String requestUrl = "http://localhost:8082" + "/game/start";
                 Request request = new Request.Builder()
                         .url(requestUrl)
                         .post(body)

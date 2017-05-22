@@ -27,6 +27,9 @@ public class MatchMakerServer {
                 "ru.atom.dbhackaton.mm"
         );
 
+        Thread matchMakerService = new Thread(new MatchMakerService());
+        matchMakerService.start();
+
         if (isTest) {
             jettyServer.start();
         } else {

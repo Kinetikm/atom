@@ -6,7 +6,5 @@ package ru.atom.dbhackaton.mm;
 public class MmServer {
     public static void main(String[] args) throws Exception {
         MatchMakerServer.start(false);
-        Thread matchMakerService = new Thread(new MatchMakerService());
-        matchMakerService.start();
     }
 }

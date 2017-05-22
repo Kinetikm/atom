@@ -63,7 +63,8 @@ public class ConnectionPool {
     public List<Session> getLastPLayers() {
         List<Session> resultLastPlayers = new ArrayList<>();
         for(int i = 0; i<PARALLELISM_LEVEL; i++) {
-            resultLastPlayers.add(lastPlayers.remove());
+            resultLastPlayers.add(lastPlayers.getLast());
+            lastPlayers.remove();
         }
         return resultLastPlayers;
     }

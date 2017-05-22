@@ -10,18 +10,23 @@ import ru.atom.network.ConnectionPool;
 import ru.atom.network.Topic;
 
 import javax.ws.rs.PathParam;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by vladfedorenko on 02.05.17.
  */
 
 public class EventHandler extends WebSocketAdapter {
+    private static AtomicInteger playerIdGenerator = new AtomicInteger(0);
+    public static int getPlayerIdGenerator() {
+        return playerIdGenerator.intValue();
+    }
 
     @Override
     public void onWebSocketConnect(Session sess) {
         super.onWebSocketConnect(sess);
         //ConnectionPool.getInstance().add(sess, playerToken);
-        ConnectionPool.getInstance().add(sess, sess.toString());
+        ConnectionPool.getInstance().add(sess, "player_" + playerIdGenerator.getAndIncrement());
         System.out.println("Socket Connected: " + sess);
     }
 
