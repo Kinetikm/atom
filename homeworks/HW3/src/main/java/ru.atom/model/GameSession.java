@@ -141,7 +141,7 @@ public class GameSession implements Tickable {
                 array.add(object);
             }
         }
-        log.info(array);
+
         return array;
     }
 
@@ -193,14 +193,15 @@ public class GameSession implements Tickable {
         }
         while(!playersActions.isEmpty()) {
                 Action action = playersActions.poll();
+                Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
+                if(action.getType().equals(Action.Type.MOVE)) {
+                    Pawn player = (Pawn) this.gameObjects.get(in);
+                    player.move(action.getDirection());
+                }
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),
-                            gameObjects.get(playersOnline.get(action.getPlayer())).getPosition(), 1,
+                            gameObjects.get(in).getPosition(), 1,
                             ticker.getTickNumber()));
-                }
-                if(action.getType().equals(Action.Type.MOVE)) {
-                    Pawn player = (Pawn) this.gameObjects.get(playersOnline.get(action.getPlayer()));
-                    player.move(action.getDirection());
                 }
         }
         sendReplika();

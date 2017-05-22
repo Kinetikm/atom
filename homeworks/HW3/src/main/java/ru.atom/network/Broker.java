@@ -33,11 +33,12 @@ public class Broker {
     }
 
     public void receive(Session session, @NotNull String msg) {
-        log.info("RECEIVED: " + msg);
+//        log.info("RECEIVED: " + msg);
         Message message = JsonHelper.fromJson(msg, Message.class);
         if (message.getTopic().equals(Topic.PLANT_BOMB)) {
-            log.info("Message type: " + Topic.PLANT_BOMB.toString());
-            playersActions.add(new Action(Action.Type.PLANT, ConnectionPool.getInstance().getPlayer(session )));
+//            log.info("Message type: " + Topic.PLANT_BOMB.toString());
+            Action action = new Action(Action.Type.PLANT, ConnectionPool.getInstance().getPlayer(session));
+            playersActions.add(action);
         } else if (message.getTopic().equals(Topic.MOVE)) {
             try {
                 DirectionMessage directionMessage = JsonHelper.fromJson(message.getData(), DirectionMessage.class);
@@ -45,6 +46,7 @@ public class Broker {
                         directionMessage.getDirection().toString());
                 Action action = new Action(Action.Type.MOVE, ConnectionPool.getInstance().getPlayer(session));
                 action.setDirection(directionMessage.getDirection());
+                playersActions.add(action);
             } catch (EnumConstantNotPresentException ex) {
                 log.error("Bad direction");
             }
