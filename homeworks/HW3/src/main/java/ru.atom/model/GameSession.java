@@ -44,10 +44,10 @@ public class GameSession implements Tickable {
     public static int PLAYERS_IN_GAME = 1;
 
     static {
-        pawnStarts.add(new Point(1*32,1*32));
-        pawnStarts.add(new Point(1*32, 11*32));
-        pawnStarts.add(new Point(15*32, 1*32));
-        pawnStarts.add(new Point(15*32, 11*32));
+        pawnStarts.add(new Point(1 * 32,1 * 32));
+        pawnStarts.add(new Point(1 * 32, 11 * 32));
+        pawnStarts.add(new Point(15 * 32, 1 * 32));
+        pawnStarts.add(new Point(15 * 32, 11 * 32));
     }
 
     public GameSession(int gameObjectId) {
@@ -55,7 +55,7 @@ public class GameSession implements Tickable {
     }
 
     public void newConnection(List<Session> players) {
-        for(Session name: players) {
+        for (Session name: players) {
             playersOnline.put(name, this.getGameObjectId());
             Pawn player = new Pawn(this.getGameObjectId(), 1, pawnStarts.remove(), 0);
             this.addGameObject(player);
@@ -97,17 +97,17 @@ public class GameSession implements Tickable {
     }
 
     public void fieldInit() {
-        for(int i=0; i<17; i++) {
-            for(int j=0; j<13; j++) {
-                if(i == 0 || j == 0 || i == 16 || j == 12) {
+        for (int i = 0; i < 17; i++) {
+            for (int j = 0; j < 13; j++) {
+                if (i == 0 || j == 0 || i == 16 || j == 12) {
                     this.addFieldElement(new Wall(this.getGameObjectId(), new Point(i, j)));
                     continue;
                 }
-                if(i % 2 == 0 && j % 2 == 0) {
+                if (i % 2 == 0 && j % 2 == 0) {
                     this.addFieldElement(new Wall(this.getGameObjectId(), new Point(i, j)));
                     continue;
                 }
-                if(((i == 15 || i == 1) && (j == 1 || j == 2 || j == 10 || j == 11))
+                if (((i == 15 || i == 1) && (j == 1 || j == 2 || j == 10 || j == 11))
                         || ((j == 1 || j == 11) && (i == 2 || i == 14))) {
                     continue;
                 }
@@ -148,7 +148,7 @@ public class GameSession implements Tickable {
     public void start() {
         this.fieldInit();
         int id = EventHandler.getPlayerIdGenerator();
-        for(Session key: playersOnline.keySet()) {
+        for (Session key: playersOnline.keySet()) {
             Broker.getInstance().send("player_" + --id, Topic.POSSESS, playersOnline.get(key));
         }
         Gson gson = new Gson();
@@ -171,38 +171,38 @@ public class GameSession implements Tickable {
                 deadObjects.add(gameObject);
             }
             if (object instanceof Bomb && ((Temporary) object).isDead()) {
-                int xSteady = object.getPosition().getX();
-                int ySteady = object.getPosition().getY();
-                int xLeft = object.getPosition().getX()-1;
-                int xRight = object.getPosition().getX()+1;
-                int yUp = object.getPosition().getY()+1;
-                int yDown = object.getPosition().getY()-1;
-                for(Integer objectDeadInd: gameObjects.keySet()) {
+                int xsteady = object.getPosition().getX();
+                int ysteady = object.getPosition().getY();
+                int xleft = object.getPosition().getX() - 1;
+                int xright = object.getPosition().getX() + 1;
+                int yup = object.getPosition().getY() + 1;
+                int ydown = object.getPosition().getY() - 1;
+                for (Integer objectDeadInd: gameObjects.keySet()) {
                     Positionable objectDead = gameObjects.get(objectDeadInd);
                     Point position = objectDead.getPosition();
-                    if(objectDeadInd!=object.getId()  && ((position.getX() == xSteady && (position.getY() == yDown ||
-                    position.getY() == yUp)) || (position.getY() == ySteady && (position.getX() == xLeft ||
-                    position.getX() == xRight))) && objectDead instanceof Temporary) {
+                    if (objectDeadInd != object.getId()  && ((position.getX() == xsteady && (position.getY() == ydown
+                            || position.getY() == yup)) || (position.getY() == ysteady && (position.getX() == xleft
+                            || position.getX() == xright))) && objectDead instanceof Temporary) {
                         deadObjects.add(objectDeadInd);
                     }
                 }
             }
         }
-        for(Integer i: deadObjects) {
+        for (Integer i: deadObjects) {
             gameObjects.remove(i);
         }
-        while(!playersActions.isEmpty()) {
-                Action action = playersActions.poll();
-                Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
-                if(action.getType().equals(Action.Type.MOVE)) {
-                    Pawn player = (Pawn) this.gameObjects.get(in);
-                    player.move(action.getDirection());
-                }
-                if(action.getType().equals(Action.Type.PLANT)) {
-                    this.addGameObject(new Bomb(this.getGameObjectId(),
-                            gameObjects.get(in).getPosition(), 3_500,
-                            ticker.getTickNumber()));
-                }
+        while (!playersActions.isEmpty()) {
+            Action action = playersActions.poll();
+            Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
+            if (action.getType().equals(Action.Type.MOVE)) {
+                Pawn player = (Pawn) this.gameObjects.get(in);
+                player.move(action.getDirection());
+            }
+            if (action.getType().equals(Action.Type.PLANT)) {
+                this.addGameObject(new Bomb(this.getGameObjectId(),
+                    gameObjects.get(in).getPosition(), 3_500,
+                    ticker.getTickNumber()));
+            }
         }
         sendReplika();
     }

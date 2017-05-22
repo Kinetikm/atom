@@ -6,8 +6,11 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.BlockingQueue;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -43,7 +46,7 @@ public class ConnectionPool {
     }
 
     public void broadcast(Set<Session> players, @NotNull String msg) {
-        for(Session sess:players) {
+        for (Session sess:players) {
             send(sess, msg);
         }
     }
@@ -62,7 +65,7 @@ public class ConnectionPool {
 
     public List<Session> getLastPLayers() {
         List<Session> resultLastPlayers = new ArrayList<>();
-        for(int i = 0; i<PARALLELISM_LEVEL; i++) {
+        for (int i = 0; i < PARALLELISM_LEVEL; i++) {
             resultLastPlayers.add(lastPlayers.getLast());
             lastPlayers.remove();
         }

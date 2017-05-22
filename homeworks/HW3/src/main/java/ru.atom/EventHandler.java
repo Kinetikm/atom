@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class EventHandler extends WebSocketAdapter {
     private static AtomicInteger playerIdGenerator = new AtomicInteger(0);
+
     public static int getPlayerIdGenerator() {
         return playerIdGenerator.intValue();
     }

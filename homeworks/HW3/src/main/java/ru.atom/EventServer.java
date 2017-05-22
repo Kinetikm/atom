@@ -16,7 +16,7 @@ import ru.atom.dbhackaton.mm.CrossBrowserFilter;
 import ru.atom.dbhackaton.mm.MatchMakerService;
 
 public class EventServer {
-    private static ContextHandler createWSContext() {
+    private static ContextHandler createWsContext() {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         ServletHolder jerseyServlet = context.addServlet(
@@ -67,9 +67,9 @@ public class EventServer {
         ContextHandlerCollection contexts = new ContextHandlerCollection();
 
         contexts.setHandlers(new Handler[] {
-//                createStartContext(),
+                // createStartContext(),
                 createGamePageContext(),
-                createWSContext()
+                createWsContext()
         });
 
         server.setHandler(contexts);

@@ -1,19 +1,18 @@
 package ru.atom.dbhackaton.mm;
 
-import com.sun.org.apache.regexp.internal.RE;
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.atom.dbhackaton.client.UserList;
 import ru.atom.dbhackaton.hibernate.LoginEntity;
 import ru.atom.model.GameSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by kinetik on 12.05.17.
