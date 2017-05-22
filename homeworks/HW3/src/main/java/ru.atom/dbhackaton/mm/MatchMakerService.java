@@ -1,13 +1,16 @@
 package ru.atom.dbhackaton.mm;
 
+import com.sun.org.apache.regexp.internal.RE;
 import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.atom.dbhackaton.client.UserList;
 import ru.atom.dbhackaton.hibernate.LoginEntity;
 import ru.atom.model.GameSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,15 +37,10 @@ public class MatchMakerService implements Runnable {
 
             if (candidates.size() == GameSession.PLAYERS_IN_GAME) {
                 MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-                RequestBody body = RequestBody.create(
-                        mediaType,
-                        String.format("players=%s", candidates)
-                );
-
                 String requestUrl = "http://localhost:8082" + "/game/start";
                 Request request = new Request.Builder()
                         .url(requestUrl)
-                        .post(body)
+                        .get()
                         .addHeader("content-type", "application/x-www-form-urlencoded")
                         .build();
 
@@ -51,9 +49,8 @@ public class MatchMakerService implements Runnable {
                 try {
                     response = client.newCall(request).execute();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.warn("Something went wrong", e);
                 }
-                log.info(response.code());
 
                 candidates.clear();
             }

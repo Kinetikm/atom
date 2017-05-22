@@ -20,12 +20,12 @@ public class EventServerController {
     private static final Logger log = LogManager.getLogger(EventServerController.class);
     private static AtomicLong sessionIds = new AtomicLong(0L);
 
-    @POST
+    @GET
     @Path("/start")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
     public Response startGame() throws InterruptedException {
-        Thread.sleep(5_000);
+        Thread.sleep(2_000);
         ConnectionPool globalPool = ConnectionPool.getInstance();
         List<Session> candidates = globalPool.getLastPLayers();
         GameSession session = new GameSession(0);
