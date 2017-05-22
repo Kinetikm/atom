@@ -13,7 +13,7 @@ public class JsonGameObject {
     public JsonGameObject(Positionable object) {
         this.id = object.getId();
         this.type = object.getClass().getSimpleName();
-        Position position = new Position(object.getPosition().getxCoord(), object.getPosition().getyCoord());
+        Position position = new Position(object.getPosition().getX(), object.getPosition().getY());
         this.positionString = JsonHelper.toJson(position);
     }
 

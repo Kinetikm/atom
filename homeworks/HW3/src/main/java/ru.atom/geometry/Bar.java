@@ -93,8 +93,8 @@ public class Bar implements Collider {
         if (this == other) return true;
         if (other instanceof Point) {
             Point point = (Point) other;
-            if (point.getxCoord() >= this.getFirstCornerX() && point.getxCoord() <= this.getSecondCornerX()
-                    && point.getyCoord() >= this.getFirstCornerY() && point.getyCoord() <= this.getSecondCornerY()) {
+            if (point.getX() >= this.getFirstCornerX() && point.getX() <= this.getSecondCornerX()
+                    && point.getY() >= this.getFirstCornerY() && point.getY() <= this.getSecondCornerY()) {
                 return true;
             } else {
                 return false;

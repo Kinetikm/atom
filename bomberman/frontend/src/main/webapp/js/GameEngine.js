@@ -74,7 +74,6 @@ GameEngine = Class.extend({
         createjs.Sound.registerSound("sound/bomb.ogg", "bomb");
         // createjs.Sound.registerSound("sound/game.ogg", "game");
 
-
     },
 
     setup: function() {
@@ -87,9 +86,9 @@ GameEngine = Class.extend({
         this.bonuses = [];
 
         this.serverProxy = new ServerProxy();
-
         // Toggle sound
         gInputEngine.subscribe('mute', this.toggleSound);
+
 
         // Start loop
         if (!createjs.Ticker.hasEventListener('tick')) {
@@ -102,6 +101,7 @@ GameEngine = Class.extend({
                 this.playSoundtrack();
             }
         }
+
     },
 
     onSoundLoaded: function(sound) {

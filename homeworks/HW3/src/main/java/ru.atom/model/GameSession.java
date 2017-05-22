@@ -1,18 +1,22 @@
 package ru.atom.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
 import ru.atom.EventHandler;
 import ru.atom.controller.Ticker;
+import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
 import ru.atom.geometry.Point;
 import ru.atom.network.Broker;
-import ru.atom.network.Replika;
 import ru.atom.network.Topic;
 
+import javax.ws.rs.POST;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,10 +44,10 @@ public class GameSession implements Tickable {
     public static int PLAYERS_IN_GAME = 1;
 
     static {
-        pawnStarts.add(new Point(1,1));
-        pawnStarts.add(new Point(1, 11));
-        pawnStarts.add(new Point(15, 1));
-        pawnStarts.add(new Point(15, 11));
+        pawnStarts.add(new Point(1*32,1*32));
+        pawnStarts.add(new Point(1*32, 11*32));
+        pawnStarts.add(new Point(15*32, 1*32));
+        pawnStarts.add(new Point(15*32, 11*32));
     }
 
     public GameSession(int gameObjectId) {
@@ -112,12 +116,33 @@ public class GameSession implements Tickable {
         }
     }
 
-    private List<Positionable> allObjects() {
-        List<Positionable> allObjects = new ArrayList<>(notMovable);
-        for(Integer key: gameObjects.keySet()) {
-            allObjects.add(gameObjects.get(key));
+    private void sendReplika() {
+        Gson gson = new Gson();
+        Broker.getInstance().broadcast(playersOnline.keySet(), Topic.REPLICA, allObjects(gson));
+    }
+
+    private JsonArray allObjects(Gson gson) {
+        JsonArray array = new JsonArray();
+        for (Positionable gameObject : notMovable) {
+            if (gameObject != null) {
+                JsonObject object = new JsonObject();
+                object.addProperty("type", gameObject.getClass().getSimpleName());
+                object.addProperty("id", gameObject.getId());
+                object.add("position", gson.toJsonTree(((Positionable) gameObject).getPosition()).getAsJsonObject());
+                array.add(object);
+            }
         }
-        return allObjects;
+        for (Positionable gameObject : gameObjects.values()) {
+            if (gameObject != null) {
+                JsonObject object = new JsonObject();
+                object.addProperty("type", gameObject.getClass().getSimpleName());
+                object.addProperty("id", gameObject.getId());
+                object.add("position", gson.toJsonTree(((Positionable) gameObject).getPosition()).getAsJsonObject());
+                array.add(object);
+            }
+        }
+        log.info(array);
+        return array;
     }
 
     public void start() {
@@ -126,7 +151,9 @@ public class GameSession implements Tickable {
         for(Session key: playersOnline.keySet()) {
             Broker.getInstance().send("player_" + --id, Topic.POSSESS, playersOnline.get(key));
         }
-        Broker.getInstance().broadcast(Topic.REPLICA, allObjects());
+        Gson gson = new Gson();
+        Broker.getInstance().broadcast(Topic.REPLICA, allObjects(gson));
+
         ticker = new Ticker(this);
         ticker.loop();
     }
@@ -144,18 +171,18 @@ public class GameSession implements Tickable {
                 deadObjects.add(gameObject);
             }
             if (object instanceof Bomb && ((Temporary) object).isDead()) {
-                int xSteady = object.getPosition().getxCoord();
-                int ySteady = object.getPosition().getyCoord();
-                int xLeft = object.getPosition().getxCoord()-1;
-                int xRight = object.getPosition().getxCoord()+1;
-                int yUp = object.getPosition().getyCoord()+1;
-                int yDown = object.getPosition().getyCoord()-1;
+                int xSteady = object.getPosition().getX();
+                int ySteady = object.getPosition().getY();
+                int xLeft = object.getPosition().getX()-1;
+                int xRight = object.getPosition().getX()+1;
+                int yUp = object.getPosition().getY()+1;
+                int yDown = object.getPosition().getY()-1;
                 for(Integer objectDeadInd: gameObjects.keySet()) {
                     Positionable objectDead = gameObjects.get(objectDeadInd);
                     Point position = objectDead.getPosition();
-                    if(objectDeadInd!=object.getId()  && ((position.getxCoord() == xSteady && (position.getyCoord() == yDown ||
-                    position.getyCoord() == yUp)) || (position.getyCoord() == ySteady && (position.getxCoord() == xLeft ||
-                    position.getxCoord() == xRight))) && objectDead instanceof Temporary) {
+                    if(objectDeadInd!=object.getId()  && ((position.getX() == xSteady && (position.getY() == yDown ||
+                    position.getY() == yUp)) || (position.getY() == ySteady && (position.getX() == xLeft ||
+                    position.getX() == xRight))) && objectDead instanceof Temporary) {
                         deadObjects.add(objectDeadInd);
                     }
                 }
@@ -176,7 +203,7 @@ public class GameSession implements Tickable {
                     player.move(action.getDirection());
                 }
         }
-        Broker.getInstance().broadcast(playersOnline.keySet(), Topic.REPLICA, allObjects());
+        sendReplika();
     }
 
     public long getId() {

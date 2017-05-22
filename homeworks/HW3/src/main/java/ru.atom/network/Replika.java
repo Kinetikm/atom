@@ -17,7 +17,7 @@ public class Replika {
     public Replika(Positionable obj) {
         this.type = obj.getClass().getSimpleName();
         this.id = obj.getId();
-        this.position = JsonHelper.toJson(new Position(obj.getPosition().getxCoord(), obj.getPosition().getyCoord()));
+        this.position = JsonHelper.toJson(new Position(obj.getPosition().getX(), obj.getPosition().getY()));
     }
     
     public String getJson() {

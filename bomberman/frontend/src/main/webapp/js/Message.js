@@ -1,4 +1,4 @@
- Messages = Class.extend({
+Messages = Class.extend({
     handler: {},
 
     init: function () {
@@ -7,6 +7,7 @@
         this.handler['Wood'] = this.handleTile;
         this.handler['Wall'] = this.handleTile;
         this.handler['Fire'] = this.handleFire;
+        this.handler['Grass'] = this.handleTile;
     },
 
     move: function (direction) {
@@ -30,16 +31,14 @@
 
 
     handleReplica: function (msg) {
-        // var gameObjects = JSON.parse(msg.data).objects;
         var gameObjects = JSON.parse(msg.data);
-        // var gameObjects = msg.data.objects;
-        // var gameObjects = msg.data;
         var survivors = new Set();
 
         for (var i = 0; i < gameObjects.length; i++) {
             var obj = gameObjects[i];
-            if (gMessages.handler[obj.type] === undefined)
+            if (gMessages.handler[obj.type] === undefined) {
                 continue;
+            }
 
             survivors.add(obj.id);
             gMessages.handler[obj.type](obj);
@@ -86,7 +85,6 @@
         var tile = gGameEngine.tiles.find(function (el) {
             return el.id === obj.id;
         });
-
         var position = Utils.getEntityPosition(Utils.convertToBitmapPosition(obj.position));
         if (tile) {
             tile.material = obj.type;

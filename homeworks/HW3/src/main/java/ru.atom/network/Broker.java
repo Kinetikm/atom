@@ -1,5 +1,6 @@
 package ru.atom.network;
 
+import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
@@ -20,6 +21,8 @@ public class Broker {
 
     private static final Broker instance = new Broker();
     private final ConnectionPool connectionPool;
+
+    private Gson gson = new Gson();
 
     public static Broker getInstance() {
         return instance;
@@ -57,12 +60,12 @@ public class Broker {
     }
 
     public void broadcast(@NotNull Topic topic, @NotNull Object object) {
-        String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
+        String message = gson.toJson(new Message(topic, gson.toJson(object)));
         connectionPool.broadcast(message);
     }
 
     public void broadcast(@NotNull Set<Session> players, @NotNull Topic topic, @NotNull Object object) {
-        String message = JsonHelper.toJson(new Message(topic, JsonHelper.toJson(object)));
-        connectionPool.broadcast(players, message);
+        String message = gson.toJson(new Message(topic, gson.toJson(object)));
+        connectionPool.broadcast(message);
     }
 }

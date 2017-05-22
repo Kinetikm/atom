@@ -6,28 +6,28 @@ import ru.atom.gameinterfaces.Collider;
  * Created by kinetik on 02.05.17.
  */
 public class Point implements Collider {
-    private int xCoord;
-    private int yCoord;
+    private int x;
+    private int y;
 
-    public Point(int xCoord, int yCoord) {
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public int getxCoord() {
-        return this.xCoord;
+    public int getX() {
+        return this.x;
     }
 
-    public int getyCoord() {
-        return this.yCoord;
+    public int getY() {
+        return this.y;
     }
 
-    public void setxCoord(int xCoord) {
-        this.xCoord = xCoord;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setyCoord(int yCoord) {
-        this.yCoord = yCoord;
+    public void setY(int y) {
+        this.y = y;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Point implements Collider {
 
         // cast from Object to Point
         Point point = (Point) o;
-        if (point.getxCoord() == this.getxCoord() && point.getyCoord() ==  this.getyCoord()) {
+        if (point.getX() == this.getX() && point.getY() ==  this.getY()) {
             return true;
         } else {
             return false;
@@ -50,8 +50,8 @@ public class Point implements Collider {
 
     @Override
     public int hashCode() {
-        int result = xCoord ^ (xCoord >>> 32);
-        result = 31 * result + yCoord ^ (yCoord >>> 32);
+        int result = x ^ (x >>> 32);
+        result = 31 * result + y ^ (y >>> 32);
         return result;
     }
 
@@ -60,7 +60,7 @@ public class Point implements Collider {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Point pointTwo = (Point) other;
-        if (pointTwo.getxCoord() == this.getxCoord() && pointTwo.getyCoord() == this.getyCoord()) {
+        if (pointTwo.getX() == this.getX() && pointTwo.getY() == this.getY()) {
             return true;
         } else {
             return false;

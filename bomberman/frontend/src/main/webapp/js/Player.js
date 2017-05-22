@@ -70,6 +70,8 @@ Player = Entity.extend({
             return;
         }
 
+
+
         if (gInputEngine.actions[this.controls.up]) {
             this.animate('up');
         } else if (gInputEngine.actions[this.controls.down]) {

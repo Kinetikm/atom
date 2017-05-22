@@ -47,16 +47,16 @@ public class Pawn implements Movable, Positionable, Tickable, GameObject {
     public Point move(Direction direction) {
         switch (direction) {
             case UP:
-                this.position = new Point(this.position.getxCoord(), this.position.getyCoord() + this.velocity);
+                this.position = new Point(this.position.getX(), this.position.getY() + this.velocity);
                 break;
             case DOWN:
-                this.position = new Point(this.position.getxCoord(), this.position.getyCoord() - this.velocity);
+                this.position = new Point(this.position.getX(), this.position.getY() - this.velocity);
                 break;
             case LEFT:
-                this.position = new Point(this.position.getxCoord() - this.velocity, this.position.getyCoord());
+                this.position = new Point(this.position.getX() - this.velocity, this.position.getY());
                 break;
             case RIGHT:
-                this.position = new Point(this.position.getxCoord() + this.velocity, this.position.getyCoord());
+                this.position = new Point(this.position.getX() + this.velocity, this.position.getY());
                 break;
             default:
                 break;
