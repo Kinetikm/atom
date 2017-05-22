@@ -12,6 +12,7 @@ import ru.atom.gameinterfaces.GameObject;
 import ru.atom.gameinterfaces.Positionable;
 import ru.atom.gameinterfaces.Temporary;
 import ru.atom.gameinterfaces.Tickable;
+import ru.atom.geometry.Direction;
 import ru.atom.geometry.Point;
 import ru.atom.network.Broker;
 import ru.atom.network.Topic;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static ru.atom.geometry.Direction.DOWN;
 
 /**
  * Created by kinetik on 02.05.17.
@@ -196,7 +199,9 @@ public class GameSession implements Tickable {
             Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
             if (action.getType().equals(Action.Type.MOVE)) {
                 Pawn player = (Pawn) this.gameObjects.get(in);
-                player.move(action.getDirection());
+                if (moveChecher(action.getDirection(), player)) {
+                    player.move(action.getDirection());
+                }
             }
             if (action.getType().equals(Action.Type.PLANT)) {
                 this.addGameObject(new Bomb(this.getGameObjectId(),
@@ -205,6 +210,37 @@ public class GameSession implements Tickable {
             }
         }
         sendReplika();
+    }
+
+    private boolean moveChecher(Direction direction, Pawn player) {
+        int ycoord;
+        int xcoord;
+        switch (direction) {
+            case UP:
+                ycoord = player.getPosition().getY() + 1;
+                xcoord = player.getPosition().getX();
+                break;
+            case DOWN:
+                ycoord = player.getPosition().getY() - 1;
+                xcoord = player.getPosition().getX();
+                break;
+            case LEFT:
+                ycoord = player.getPosition().getY();
+                xcoord = player.getPosition().getX() - 1;
+                break;
+            case RIGHT:
+                ycoord = player.getPosition().getY();
+                xcoord = player.getPosition().getX() + 1;
+                break;
+            default:
+                return true;
+        }
+        for (Positionable gameObject: this.gameObjects.values()) {
+            if (gameObject.getPosition().getX() == xcoord && gameObject.getPosition().getY() == ycoord) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public long getId() {
