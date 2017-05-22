@@ -8,10 +8,20 @@ import ru.atom.gameinterfaces.Collider;
 public class Point implements Collider {
     private int x;
     private int y;
+    private static int MAX_X = 16 * 32;
+    private static int MAX_Y = 12 * 32;
 
     public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+        if (x >= 0 && x < MAX_X) {
+            this.x = x;
+        } else {
+            this.x = x <= 0 ? 1 : MAX_X - 1;
+        }
+        if (y >= 0 && y < MAX_Y) {
+            this.y = y;
+        } else {
+            this.y = y <= 0 ? 1 : MAX_Y - 1;
+        }
     }
 
     public int getX() {
@@ -23,11 +33,19 @@ public class Point implements Collider {
     }
 
     public void setX(int x) {
-        this.x = x;
+        if (x > 0 && x < MAX_X) {
+            this.x = x;
+        } else {
+            this.x = x < 0 ? MAX_X - 1 : 1;
+        }
     }
 
     public void setY(int y) {
-        this.y = y;
+        if (y > 0 && y < MAX_Y) {
+            this.y = y;
+        } else {
+            this.y = y < 0 ? MAX_Y - 1 : 1;
+        }
     }
 
     /**

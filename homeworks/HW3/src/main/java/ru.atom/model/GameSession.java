@@ -160,7 +160,7 @@ public class GameSession implements Tickable {
 
     @Override
     public void tick(long elapsed) {
-        log.info("tick");
+        //log.info("tick");
         ArrayList<Integer> deadObjects = new ArrayList<>();
         for (Integer gameObject : gameObjects.keySet()) {
             Positionable object = gameObjects.get(gameObject);
@@ -200,7 +200,7 @@ public class GameSession implements Tickable {
                 }
                 if(action.getType().equals(Action.Type.PLANT)) {
                     this.addGameObject(new Bomb(this.getGameObjectId(),
-                            gameObjects.get(in).getPosition(), 1,
+                            gameObjects.get(in).getPosition(), 3_500,
                             ticker.getTickNumber()));
                 }
         }
