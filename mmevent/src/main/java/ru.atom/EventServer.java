@@ -34,11 +34,12 @@ public class EventServer {
 
     private static ContextHandler createGamePageContext() {
         ContextHandler context = new ContextHandler();
-        context.setContextPath("/gg/0");
+        context.setContextPath("/gg/");
         ResourceHandler handler = new ResourceHandler();
         handler.setWelcomeFiles(new String[]{"index.html"});
 
-        handler.setResourceBase("/var/lib/jetty/webapps/index.html");
+        String serverRoot = EventServer.class.getResource("/webapp").toString();
+        handler.setResourceBase(serverRoot);
         context.setHandler(handler);
         return context;
     }

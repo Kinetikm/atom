@@ -1,6 +1,6 @@
 ServerProxy = Class.extend({
 
-    host: "localhost:8282",
+    host: "195.19.44.151:53502",
 
     socket: null,
 

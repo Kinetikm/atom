@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.atom.UtilTest" tests="8" skipped="8" failures="0" errors="0" timestamp="2017-05-23T18:47:51" hostname="ilysko" time="0.004">
+<testsuite name="ru.atom.UtilTest" tests="8" skipped="8" failures="0" errors="0" timestamp="2017-05-23T19:51:11" hostname="ilysko" time="0.018">
   <properties/>
-  <testcase name="max0" classname="ru.atom.UtilTest" time="0.0">
+  <testcase name="max0" classname="ru.atom.UtilTest" time="0.008">
     <skipped/>
   </testcase>
   <testcase name="max1" classname="ru.atom.UtilTest" time="0.0">
@@ -13,7 +13,7 @@
   <testcase name="max3" classname="ru.atom.UtilTest" time="0.0">
     <skipped/>
   </testcase>
-  <testcase name="sum0" classname="ru.atom.UtilTest" time="0.001">
+  <testcase name="sum0" classname="ru.atom.UtilTest" time="0.0">
     <skipped/>
   </testcase>
   <testcase name="sum1" classname="ru.atom.UtilTest" time="0.0">

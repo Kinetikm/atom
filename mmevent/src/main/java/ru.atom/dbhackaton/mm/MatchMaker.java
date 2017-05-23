@@ -42,7 +42,7 @@ public class MatchMaker {
             log.info("user \"" + user.getUser().getLogin() + "\" joined game");
             ThreadSafeQueue.getInstance().add(user);
             // TODO 0
-            String gameurl = "http://195.19.44.151:53502/gg/" + "0";
+            String gameurl = "http://195.19.44.151:53502/gg/";
             return Response.ok(gameurl).build();
         } else {
             if (token == null) {
