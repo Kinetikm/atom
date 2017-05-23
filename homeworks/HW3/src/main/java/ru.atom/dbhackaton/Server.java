@@ -5,9 +5,6 @@ package ru.atom.dbhackaton;
  */
 
 import ru.atom.dbhackaton.auth.ApiServlet;
-import org.jetbrains.annotations.NotNull;
-import ru.atom.dbhackaton.client.RestClient;
-import ru.atom.dbhackaton.client.RestClientImpl;
 
 
 public class Server {
