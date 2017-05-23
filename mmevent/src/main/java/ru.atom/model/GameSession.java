@@ -14,6 +14,7 @@ import ru.atom.gameinterfaces.Tickable;
 import ru.atom.geometry.Direction;
 import ru.atom.geometry.Point;
 import ru.atom.network.Broker;
+import ru.atom.network.ConnectionPool;
 import ru.atom.network.Topic;
 
 import java.util.ArrayList;
@@ -31,11 +32,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameSession implements Tickable {
     private static final Logger log = LogManager.getLogger(GameSession.class);
-    private HashMap<Integer, Positionable> gameObjects = new HashMap<>();
+    private ConcurrentHashMap<Integer, Positionable> gameObjects = new ConcurrentHashMap<>();
     private ArrayList<Positionable> notMovable = new ArrayList<>();
     private static LinkedList<Point> pawnStarts = new LinkedList<>();
     private static ConcurrentHashMap<Session, Integer> playersOnline = new ConcurrentHashMap<>();
     public static ConcurrentLinkedQueue<Action> playersActions = new ConcurrentLinkedQueue<>();
+
+    private Object lock = new Object();
 
     private AtomicInteger gameObjectId;
     private Ticker ticker;
@@ -160,76 +163,96 @@ public class GameSession implements Tickable {
 
     @Override
     public void tick(long elapsed) {
-        //log.info("tick");
-        ArrayList<Integer> deadObjects = new ArrayList<>();
-        ArrayList<Positionable> deadNotMovableObjects = new ArrayList<>();
-        for (Integer gameObject : gameObjects.keySet()) {
-            Positionable object = gameObjects.get(gameObject);
-            if (object instanceof Tickable) {
-                ((Tickable) object).tick(elapsed);
-            }
-            if (object instanceof Temporary && ((Temporary) object).isDead()) {
-                deadObjects.add(gameObject);
-            }
-            if (object instanceof Bomb && ((Temporary) object).isDead()) {
-                int xsteady = (int) Math.floor(object.getPosition().getX() / 32f);
-                int ysteady = (int) Math.floor(object.getPosition().getY() / 32f);
-                int xleft = (int) Math.floor(object.getPosition().getX() / 32f) - 1;
-                int xright = (int) Math.ceil(object.getPosition().getX() / 32f) + 1;
-                int yup = (int) Math.ceil(object.getPosition().getY() / 32f) + 1;
-                int ydown = (int) Math.floor(object.getPosition().getY() / 32f) - 1;
-                for (Integer objectDeadInd: gameObjects.keySet()) {
-                    Positionable objectDead = gameObjects.get(objectDeadInd);
-                    Point position = objectDead.getPosition();
-                    if (objectDeadInd != object.getId()
-                            && (((int) Math.floor(position.getX() / 32f) == xsteady
-                            && ((int) Math.floor(position.getY() / 32f) >= ydown
-                            && (int) Math.ceil(position.getY() / 32f) <= yup))
-                            || ((int) Math.floor(position.getY() / 32f) == ysteady
-                            && ((int) Math.floor(position.getX() / 32f) >= xleft
-                            && (int) Math.ceil(position.getX() / 32f) <= xright)))) {
-                        this.addGameObject(new Fire(this.getGameObjectId(), position,
-                                3, 0));
-                        deadObjects.add(objectDeadInd);
+        synchronized (lock) {
+            //log.info("tick");
+            ArrayList<Integer> deadObjects = new ArrayList<>();
+            ArrayList<Positionable> deadNotMovableObjects = new ArrayList<>();
+            for (Integer gameObject : gameObjects.keySet()) {
+                Positionable object = gameObjects.get(gameObject);
+                if (object instanceof Tickable) {
+                    ((Tickable) object).tick(elapsed);
+                }
+                if (object instanceof Temporary && ((Temporary) object).isDead()) {
+                    deadObjects.add(gameObject);
+                }
+                if (object instanceof Bomb && ((Temporary) object).isDead()) {
+                    int xsteady = (int) Math.floor(object.getPosition().getX() / 32f);
+                    int ysteady = (int) Math.floor(object.getPosition().getY() / 32f);
+                    int xleft = (int) Math.floor(object.getPosition().getX() / 32f) - 1;
+                    int xright = (int) Math.ceil(object.getPosition().getX() / 32f) + 1;
+                    int yup = (int) Math.ceil(object.getPosition().getY() / 32f) + 1;
+                    int ydown = (int) Math.floor(object.getPosition().getY() / 32f) - 1;
+                    for (Integer objectDeadInd : gameObjects.keySet()) {
+                        Positionable objectDead = gameObjects.get(objectDeadInd);
+                        Point position = objectDead.getPosition();
+                        if (objectDeadInd != object.getId()
+                                && (((int) Math.floor(position.getX() / 32f) == xsteady
+                                && ((int) Math.floor(position.getY() / 32f) >= ydown
+                                && (int) Math.ceil(position.getY() / 32f) <= yup))
+                                || ((int) Math.floor(position.getY() / 32f) == ysteady
+                                && ((int) Math.floor(position.getX() / 32f) >= xleft
+                                && (int) Math.ceil(position.getX() / 32f) <= xright)))) {
+                            this.addGameObject(new Fire(this.getGameObjectId(), position,
+                                    3, 0));
+                            deadObjects.add(objectDeadInd);
+                            if (objectDead instanceof Pawn) {
+                                for (Session key : playersOnline.keySet()) {
+                                    if (playersOnline.get(key).equals(objectDeadInd)) {
+                                        ConnectionPool.getInstance().remove(key);
+                                        playersOnline.remove(key);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (Positionable objectDead : notMovable) {
+                        Point position = objectDead.getPosition();
+                        if (objectDead instanceof Wood
+                                && ((position.getX() == xsteady
+                                && (position.getY() >= ydown
+                                && position.getY() <= yup))
+                                || (position.getY() == ysteady
+                                && (position.getX() >= xleft
+                                && position.getX() <= xright)))) {
+                            this.addGameObject(new Fire(this.getGameObjectId(), new Point(position.getX() * 32,
+                                    position.getY() * 32),
+                                    3, 0));
+                            deadNotMovableObjects.add(objectDead);
+                        }
                     }
                 }
-                for (Positionable objectDead: notMovable) {
-                    Point position = objectDead.getPosition();
-                    if (objectDead instanceof Wood
-                            && ((position.getX() == xsteady
-                            && (position.getY() >= ydown
-                            && position.getY() <= yup))
-                            || (position.getY() == ysteady
-                            && (position.getX() >= xleft
-                            && position.getX() <= xright)))) {
-                        this.addGameObject(new Fire(this.getGameObjectId(), new Point(position.getX() * 32,
-                                position.getY() * 32),
-                                3, 0));
-                        deadNotMovableObjects.add(objectDead);
+            }
+            for (Integer i : deadObjects) {
+                gameObjects.remove(i);
+                for (Session key : playersOnline.keySet()) {
+                    if (playersOnline.get(key).equals(i)) {
+                        ConnectionPool.getInstance().remove(key);
+                        playersOnline.remove(key);
+                        break;
                     }
                 }
             }
-        }
-        for (Integer i: deadObjects) {
-            gameObjects.remove(i);
-        }
-        notMovable.removeAll(deadNotMovableObjects);
-        while (!playersActions.isEmpty()) {
-            Action action = playersActions.poll();
-            Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
-            if (action.getType().equals(Action.Type.MOVE)) {
-                Pawn player = (Pawn) this.gameObjects.get(in);
-                if (moveChecher(action.getDirection(), player)) {
-                    player.move(action.getDirection());
+            notMovable.removeAll(deadNotMovableObjects);
+            while (!playersActions.isEmpty()) {
+                Action action = playersActions.poll();
+                Integer in = new Integer(action.getPlayer().substring(action.getPlayer().length() - 1));
+                if (this.gameObjects.get(in) != null) {
+                    if (action.getType().equals(Action.Type.MOVE)) {
+                        Pawn player = (Pawn) this.gameObjects.get(in);
+                        if (moveChecher(action.getDirection(), player)) {
+                            player.move(action.getDirection());
+                        }
+                    }
+                    if (action.getType().equals(Action.Type.PLANT)) {
+                        this.addGameObject(new Bomb(this.getGameObjectId(),
+                                gameObjects.get(in).getPosition(), 3_500,
+                                ticker.getTickNumber()));
+                    }
                 }
             }
-            if (action.getType().equals(Action.Type.PLANT)) {
-                this.addGameObject(new Bomb(this.getGameObjectId(),
-                        gameObjects.get(in).getPosition(), 3_500,
-                        ticker.getTickNumber()));
-            }
+            sendReplika();
         }
-        sendReplika();
     }
 
     private boolean moveChecher(Direction direction, Pawn player) {
