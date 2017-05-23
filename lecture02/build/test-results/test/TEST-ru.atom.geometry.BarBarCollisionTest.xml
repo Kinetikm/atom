@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.geometry.BarBarCollisionTest" tests="32" skipped="32" failures="0" errors="0" timestamp="2017-05-23T05:47:43" hostname="ilysko" time="0.012">
+  <properties/>
+  <testcase name="barIntersectsBar14" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointOnCornerOfBar" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointOutsideOfBar1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointOutsideOfBar2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="pointOutsideOfBar3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIncludesBar" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointsNotCollide1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointsNotCollide2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointsNotCollide3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="pointOnBorderOfBar" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBarByBorder1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIsNotOriented1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIsNotOriented2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIsNotOriented3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar4" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar5" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barDoesNotIntersectBar6" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBar1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBar2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBar3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBar5" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBar6" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barIntersectsBarByCorner" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="barsEquals" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="equalBarsCollide1" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="equalBarsCollide2" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="equalBarsCollide3" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="pointInsideBar" classname="ru.atom.geometry.BarBarCollisionTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="barSelfCollide" classname="ru.atom.geometry.BarBarCollisionTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

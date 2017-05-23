@@ -702,18 +702,18 @@ final class Message {
    
       
 #HSLIDE
-### Bonus - gradlew build
+### Bonus - gradlew webapp.build
 ```bash
-# build fat jar @see build.gradle in lecture02 submodule 
+# webapp.build fat jar @see webapp.build.gradle in lecture02 submodule 
 > ./gradlew :lecture02:jar
 > blah-blah
 > BUILD SUCCESSFUL
 
-> java -jar lecture02/build/libs/lecture02-1.0-SNAPSHOT.jar 
+> java -jar lecture02/webapp.build/libs/lecture02-1.0-SNAPSHOT.jar 
 > Hello, World!
 
 # jar listing
-> jar -tfv  lecture02/build/libs/lecture02-1.0-SNAPSHOT.jar
+> jar -tfv  lecture02/webapp.build/libs/lecture02-1.0-SNAPSHOT.jar
 ```
 
 

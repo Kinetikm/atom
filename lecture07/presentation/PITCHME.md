@@ -236,7 +236,7 @@ This is simple and popular web services architecture
 
 #HSLIDE
 ### Plug in hibernate
-We plug in hibernate as library within **build.gradle** (as usual)
+We plug in hibernate as library within **webapp.build.gradle** (as usual)
 
 #HSLIDE
 ### Hibernate configuration

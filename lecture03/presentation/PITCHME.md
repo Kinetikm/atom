@@ -35,7 +35,7 @@ https://atom.mail.ru/
 
 #HSLIDE
 ### settings.gradle
-Declares the configuration required to instantiate and configure the hierarchy of Project instances which are to participate in a build.
+Declares the configuration required to instantiate and configure the hierarchy of Project instances which are to participate in a webapp.build.
 
 ```groovy
 rootProject.name = 'atom'
@@ -48,8 +48,8 @@ include 'homeworks/HW1'
 ```
 
 #HSLIDE
-### build.gradle
-Project(subproject) build configuration
+### webapp.build.gradle
+Project(subproject) webapp.build configuration
 
 - **ext** - set of global variables
 - **ext.libraries** - map of most common(for our project) libraries

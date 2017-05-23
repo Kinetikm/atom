@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.lecture09.serialization.SerializationDeserializationTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-05-23T05:48:03" hostname="ilysko" time="0.021">
+  <properties/>
+  <testcase name="externalizableDeserialize" classname="ru.atom.lecture09.serialization.SerializationDeserializationTests" time="0.006"/>
+  <testcase name="externalizableSerialize" classname="ru.atom.lecture09.serialization.SerializationDeserializationTests" time="0.001"/>
+  <testcase name="nonSerializableSerialize" classname="ru.atom.lecture09.serialization.SerializationDeserializationTests" time="0.011"/>
+  <testcase name="serializableSerialize" classname="ru.atom.lecture09.serialization.SerializationDeserializationTests" time="0.002"/>
+  <testcase name="serializableDeserialize" classname="ru.atom.lecture09.serialization.SerializationDeserializationTests" time="0.0"/>
+  <system-out><![CDATA[ExternalizableClass{strings='[true, false, true, false]'}
+SerializableClass{field='field value', transientField='null'}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

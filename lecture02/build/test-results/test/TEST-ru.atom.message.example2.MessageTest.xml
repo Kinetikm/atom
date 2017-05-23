@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.message.example2.MessageTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-05-23T05:47:43" hostname="ilysko" time="0.001">
+  <properties/>
+  <testcase name="saveTo" classname="ru.atom.message.example2.MessageTest" time="0.001"/>
+  <system-out><![CDATA[Save to in action
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

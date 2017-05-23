@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.thread.mm.MatchMakerTest" tests="2" skipped="2" failures="0" errors="0" timestamp="2017-05-23T05:47:48" hostname="ilysko" time="0.001">
+  <properties/>
+  <testcase name="singleProducer" classname="ru.atom.thread.mm.MatchMakerTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="multipleProducer" classname="ru.atom.thread.mm.MatchMakerTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

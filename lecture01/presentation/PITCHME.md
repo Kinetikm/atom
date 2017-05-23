@@ -565,7 +565,7 @@ master
 #HSLIDE
 # Gradle
 https://gradle.org/  
-**Gradle** - build automation system  
+**Gradle** - webapp.build automation system  
 
 Like **maven** but more powerful  
 do not need installation ([details](https://gradle.org/install)), just use:
@@ -582,36 +582,36 @@ do not need installation ([details](https://gradle.org/install)), just use:
 
 #HSLIDE
 ## Why gradle?
-- build/test/jar ... your project
-- support custom build stages, configurable with **groovy**
+- webapp.build/test/jar ... your project
+- support custom webapp.build stages, configurable with **groovy**
 - manage **dependencies** (automatacally download)
 - manage project structure  
   
-build configuration is contained in **build.gradle**  
+webapp.build configuration is contained in **webapp.build.gradle**  
 gradle settings are defined in **gradle.settings**  
 
 #HSLIDE
 ## Gradle workflow
 https://guides.gradle.org/creating-java-applications/  
   
-To build project from scratch, run tests and checkstyle:  
+To webapp.build project from scratch, run tests and checkstyle:  
 **linux/macOS:**
 ```
-> ./gradlew clean build
+> ./gradlew clean webapp.build
 ```
 **Windows:**
 ```
-> gradlew.bat clean build
+> gradlew.bat clean webapp.build
 ```
 
 #HSLIDE
 ## Checkstyle
 There exist verbose [styleguide](https://google.github.io/styleguide/javaguide.html) from google
   
-To make it easier we added "checkstyle" to our **gradle** build
+To make it easier we added "checkstyle" to our **gradle** webapp.build
 [https://docs.gradle.org/current/userguide/checkstyle_plugin.html](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)  
   
-So your code will not build unless style is correct :)
+So your code will not webapp.build unless style is correct :)
 
 
 #HSLIDE
@@ -619,7 +619,7 @@ So your code will not build unless style is correct :)
 Continuous Integration Tool  
 [https://travis-ci.org/](https://travis-ci.org/)  
 
-When you push to repository - Travis automatically runs gradle build on server  
+When you push to repository - Travis automatically runs gradle webapp.build on server  
 It tracks all branches and pull requests  
 [https://travis-ci.org/rybalkinsd/atom/pull_requests](https://travis-ci.org/rybalkinsd/atom/pull_requests)  
 
@@ -639,7 +639,7 @@ It tracks all branches and pull requests
 # Homework 1
 1. Fix tests in branch **homework1** and push it to **your fork**  
 [[Github branch]](https://github.com/rybalkinsd/atom/tree/homework1)
-[[Travis build]](https://travis-ci.org/rybalkinsd/atom/builds/204177834)
+[[Travis webapp.build]](https://travis-ci.org/rybalkinsd/atom/builds/204177834)
 2. Make pull request to **course repository**
 [https://github.com/rybalkinsd/atom](https://github.com/rybalkinsd/atom)
 3. Make sure **tests** and **checkstyle** are passing in **Travis**  

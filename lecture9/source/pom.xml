@@ -8,7 +8,7 @@
     <artifactId>lecture9</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.webapp.build.sourceEncoding>UTF-8</project.webapp.build.sourceEncoding>
         <jetty-version>9.2.7.v20150116</jetty-version>
     </properties>
     <dependencies>

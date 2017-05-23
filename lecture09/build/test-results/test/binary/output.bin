@@ -1,0 +1,18 @@
+:ExternalizableClass{strings='[true, false, true, false]'}
+>SerializableClass{field='field value', transientField='null'}
+Class:
+5class ru.atom.lecture09.reflection.ClassToIntrospect
+ClassLoader:
+*sun.misc.Launcher$AppClassLoader@73d16e93
+Declared Constructors:
+v[public ru.atom.lecture09.reflection.ClassToIntrospect(int), public ru.atom.lecture09.reflection.ClassToIntrospect()]
+Declared Fields:
+á[private static final java.lang.String ru.atom.lecture09.reflection.ClassToIntrospect.STATIC_FIELD, private final java.lang.String ru.atom.lecture09.reflection.ClassToIntrospect.stringField, int ru.atom.lecture09.reflection.ClassToIntrospect.intField, private static final transient boolean[] ru.atom.lecture09.reflection.ClassToIntrospect.$jacocoData]
+Declared Methods:
+ê[private void ru.atom.lecture09.reflection.ClassToIntrospect.privateMethod(), public java.lang.Object ru.atom.lecture09.reflection.ClassToIntrospect.genericMethod(), public void ru.atom.lecture09.reflection.ClassToIntrospect.methodWithException() throws java.lang.Exception, private static boolean[] ru.atom.lecture09.reflection.ClassToIntrospect.$jacocoInit()]
+Declared Annotations:
+4[@ru.atom.lecture09.reflection.RuntimeAnnotation()]
+To be or not to be2The first line by writerThe second line by writer
+The first line by NioFileApi
+The second line by NioFileApi
+

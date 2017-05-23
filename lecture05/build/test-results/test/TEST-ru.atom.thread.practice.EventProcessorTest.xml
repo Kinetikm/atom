@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.thread.practice.EventProcessorTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2017-05-23T05:47:48" hostname="ilysko" time="0.0">
+  <properties/>
+  <testcase name="process" classname="ru.atom.thread.practice.EventProcessorTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

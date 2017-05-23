@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.http.ChatClientTest" tests="4" skipped="4" failures="0" errors="0" timestamp="2017-05-23T05:48:09" hostname="ilysko" time="0.0">
+  <properties/>
+  <testcase name="viewOnline" classname="ru.atom.http.ChatClientTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="say" classname="ru.atom.http.ChatClientTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="login" classname="ru.atom.http.ChatClientTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="viewChat" classname="ru.atom.http.ChatClientTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

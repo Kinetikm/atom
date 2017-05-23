@@ -41,7 +41,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <name>JMH benchmark sample: Java</name>
 
     <!--
-       This is the demo/sample template build script for building Java benchmarks with JMH.
+       This is the demo/sample templwebapp.builduild script for building Java benchmarks with JMH.
        Edit as needed.
     -->
 
@@ -75,7 +75,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </dependencies>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.webapp.build.sourceEncoding>UTF-8</project.webapp.build.sourceEncoding>
 
         <!--
             JMH version to use with this project.
@@ -93,7 +93,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <uberjar.name>benchmarks</uberjar.name>
     </properties>
 
-    <build>
+    <webapp.build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -181,6 +181,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
                 </plugin>
             </plugins>
         </pluginManagement>
-    </build>
+    </webapp.build>
 
 </project>

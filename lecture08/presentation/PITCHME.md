@@ -135,7 +135,7 @@ Then no handshakes or headers required. **Only raw data**
 #HSLIDE
 ## WebSocket library
 There are a number of **websocket** implementations. We will use jersey **websocket implementation**  
-> **@see** build.gradle
+> **@see** webapp.build.gradle
 
 #HSLIDE
 ## Websocket library interface

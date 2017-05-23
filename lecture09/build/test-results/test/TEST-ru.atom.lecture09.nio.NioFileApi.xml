@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.lecture09.nio.NioFileApi" tests="2" skipped="0" failures="0" errors="0" timestamp="2017-05-23T05:48:03" hostname="ilysko" time="0.007">
+  <properties/>
+  <testcase name="writeFile" classname="ru.atom.lecture09.nio.NioFileApi" time="0.005"/>
+  <testcase name="readFile" classname="ru.atom.lecture09.nio.NioFileApi" time="0.001"/>
+  <system-out><![CDATA[The first line by NioFileApi
+The second line by NioFileApi
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

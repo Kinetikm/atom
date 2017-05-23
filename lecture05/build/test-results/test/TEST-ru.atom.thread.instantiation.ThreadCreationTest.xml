@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.atom.thread.instantiation.ThreadCreationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2017-05-23T05:47:49" hostname="ilysko" time="10.026">
+  <properties/>
+  <testcase name="singleInstance" classname="ru.atom.thread.instantiation.ThreadCreationTest" time="5.018"/>
+  <testcase name="multipleInstance" classname="ru.atom.thread.instantiation.ThreadCreationTest" time="5.007"/>
+  <system-out><![CDATA[08:47:49.314 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads created
+08:47:49.323 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:49.324 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads started
+08:47:49.324 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:49.824 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:49.826 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:50.325 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:50.326 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:50.826 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:50.827 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:51.327 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:51.328 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:51.828 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:51.829 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:52.329 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:52.330 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:52.831 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:52.831 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:53.332 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:53.332 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:53.833 [NotifierImplementsRunnable] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:53.833 [NotifierExtendsThread] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:54.326 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads interrupted
+08:47:54.326 [NotifierExtendsThread] WARN  ru.atom.thread.instantiation.NotifierExtendsThread - Was interrupted
+08:47:54.326 [NotifierImplementsRunnable] WARN  ru.atom.thread.instantiation.NotifierImplementsRunnable - Was interrupted
+08:47:54.331 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads created
+08:47:54.333 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads started
+08:47:54.333 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:54.343 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:54.333 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:54.343 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:54.843 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:54.843 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:54.844 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:54.844 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:55.345 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:55.346 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:55.346 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:55.346 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:55.847 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:55.847 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:55.848 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:55.847 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:56.349 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:56.349 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:56.350 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:56.351 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:56.851 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:56.851 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:56.852 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:56.853 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:57.353 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:57.353 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:57.354 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:57.354 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:57.854 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:57.855 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:57.855 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:57.854 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:58.356 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:58.357 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:58.357 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:58.356 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:58.859 [NotifierExtendsThread 0] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:58.860 [NotifierImplementsRunnable 1] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:58.860 [NotifierImplementsRunnable 0] INFO  ru.atom.thread.instantiation.NotifierImplementsRunnable - NotifierImplementsRunnable is running!
+08:47:58.860 [NotifierExtendsThread 1] INFO  ru.atom.thread.instantiation.NotifierExtendsThread - NotifierExtendsThread is running!
+08:47:59.336 [Test worker] INFO  ru.atom.thread.instantiation.ThreadCreationTest - All threads interrupted
+08:47:59.336 [NotifierExtendsThread 0] WARN  ru.atom.thread.instantiation.NotifierExtendsThread - Was interrupted
+08:47:59.336 [NotifierImplementsRunnable 0] WARN  ru.atom.thread.instantiation.NotifierImplementsRunnable - Was interrupted
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -513,7 +513,7 @@ We use OkHTTP library as java HTTP Client
         .get()
         .url(PROTOCOL + HOST + PORT + "/chat/online")
         .addHeader("host", HOST + PORT)
-        .build();
+        .webapp.build();
 
     return client.newCall(request).execute();
   }
@@ -527,7 +527,7 @@ We use OkHTTP library as java HTTP Client
         .get()
         .url(PROTOCOL + HOST + PORT + "/chat/online")
         .addHeader("host", HOST + PORT)
-        .build();
+        .webapp.build();
 
     return client.newCall(request).execute();
   }
